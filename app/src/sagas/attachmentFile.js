@@ -9,11 +9,6 @@ import {
 import ApiSauce from "../services/ApiSauce";
 import { IMAGE_ENTITY_TYPE_ID } from "../constants";
 import { success, failure } from "../actions/AttachmentFile";
-import { request as userEdit } from "../actions/UserEdit";
-import { request as updateSpotReqeust } from "../actions/UpdateSpot";
-import { request as createSpotRequest } from "../actions/SpotCreate";
-import { request as createEventRequest } from "../actions/EventCreate";
-import { request as updateEventRequest } from "../actions/EventUpdate";
 
 function callRequest(data) {
   return ApiSauce.postImage(API_ENTITY_ATTACHMENT_FILE, data, {
