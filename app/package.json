@@ -4,20 +4,59 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "port-8082": "node node_modules/react-native/local-cli/cli.js start --port 8082",
+    "flow": "flow",
+    "flow-stop": "flow stop"
   },
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.52.1",
-    "react-native-router-flux": "^4.0.0-beta.28"
+    "react-native-router-flux": "^4.0.0-beta.28",
+    "apisauce": "^0.14.1",
+    "base-64": "^0.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "prop-types": "^15.6.0",
+    "create-react-class": "^15.6.2",
+    "numeral": "^2.0.6",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
+    "redux-storage": "^4.1.2",
+    "redux-storage-decorator-filter": "^1.1.8",
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
+    "seamless-immutable": "^7.1.2",
+    "socket.io-client": "^2.0.3",
+    "yarn": "^0.27.5",
+    "react-native-keyboard-manager": "^4.0.13-1",
+    "react-native-splash-screen": "^3.0.6",
+    "react-native-message-bar": "^2.0.4"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react-native": "^3.0.1",
+    "flow-bin": "0.49.1",
+    "remote-redux-devtools": "^0.5.12",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.1.4",
     "react-test-renderer": "16.2.0"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./src/fonts"
+    ]
   }
 }
