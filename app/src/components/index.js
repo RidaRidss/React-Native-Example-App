@@ -1,6 +1,7 @@
 // @flow
 import Text from "./Text";
 import Button from "./Button";
+import Spacer from "./Spacer";
 // import ButtonView from "./ButtonView";
 // // import Facebook from "./Facebook";
 // import LocationButton from "./LocationButton";
@@ -34,7 +35,6 @@ import Button from "./Button";
 // import CardView from "./CardView";
 // import OR from "./OR";
 // import SectionList from "./SectionList";
-// import Spacer from "./Spacer";
 // import GradientView from "./GradientView";
 // import Underline from "./Underline";
 // import Footer from "./Footer";
@@ -49,12 +49,12 @@ import Button from "./Button";
 
 export {
   Text,
-  Button
+  Button,
+  Spacer
   // ButtonGradient,
   // CardView,
   // OR,
   // SectionList,
-  // Spacer,
   // GradientView,
   // Underline,
   // Footer,

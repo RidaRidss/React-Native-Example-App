@@ -1,25 +1,21 @@
 // @flow
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import _ from "lodash";
+import PropTypes from "prop-types";
+
 import { View, StyleSheet , Platform} from "react-native";
 import { Actions } from "react-native-router-flux";
-
 import { TextField } from 'react-native-material-textfield';
+import * as Progress from 'react-native-progress';
 
-import {Fonts , Metrics , Colors} from "../../theme"
+
 import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
-import {Text, Button} from "../../components"
+import {Fonts , Metrics , Colors} from "../../theme"
+import {Text, Button, Spacer} from "../../components"
 import styles from "./styles";
 
-  const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-      'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-      'Shake or press menu button for dev menu',
-  });
 
 class Home extends Component {
   
@@ -35,6 +31,33 @@ class Home extends Component {
 
   email;
   password;
+
+
+  _onAccessoryPress = () => {
+    this.setState({
+      secureTextEntry: !this.state.secureTextEntry
+    });
+  };
+
+  _renderPasswordAccessory = () => {
+    const { secureTextEntry } = this.state;
+
+    const name = "show?";
+
+    return (
+      <Text
+        onPress={() => this._onAccessoryPress()}
+        style={{
+          // color: "primary",
+          fontSize: Fonts.size.normal,
+          fontFamily: Fonts.type.medium
+        }}
+      >
+        {name}
+      </Text>
+    );
+  };
+
 
   _onFocus = () => {
     const { errors = {} } = this.state;
@@ -115,6 +138,7 @@ class Home extends Component {
     const { email, password, errors, secureTextEntry } = this.state;
     return (
       <View style={styles.container}>
+      <View style={styles.fieldView}>
       <Text size="xxLarge" color="primary" type="black">LOG IN</Text>
         <TextField
         ref={ref => {
@@ -176,7 +200,14 @@ class Home extends Component {
       error={errors.password}
       maxLength={30}
     />
-      <Button onPress={this._onLogin} style={styles.button} title="Next" type={Fonts.type.black} size={40} background={Colors.tertiary} color="white">Next</Button>
+      </View>
+      <View style={styles.buttonView}>
+      <Button onPress={this._onLogin} style={styles.button} title="Next" type={Fonts.type.book} size={40} background={Colors.tertiary} color="white">Next</Button>
+      </View>
+      <View style={styles.progressView}>
+      <Progress.Bar color={Colors.tertiary} progress={0.3} width={200} />
+      </View>
+      <Spacer />
       </View>
     );
   }
