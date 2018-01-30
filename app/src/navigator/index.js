@@ -12,34 +12,22 @@ import { Text } from "react-native";
 import {Login, Detail} from "../containers";
 
 const navigator = Actions.create(
-  // <Scene
-
-  // initial key="login" component={Login}/>
-  // <Scene key="detail" component={Detail}/>
-
-
+  
   <Stack
   key="root"
   backTitle=" "
-  // titleStyle={styles.title}
-  // headerStyle={styles.header}
   tintColor="white"
   >  
 
   <Scene
   initial
   key="home"
-  // headerStyle={styles.headerTransparent}
   component={Login}
   type={ActionConst.RESET}
 />
 
 
     <Scene
-      // renderLeftButton={() => (
-      //   <TabButtonLeft imagesArray={["back"]} actions={[Actions.pop]} />
-      // )}
-      // headerStyle={styles.headerTransparent}
       key="detail"
       component={Detail}
     />
