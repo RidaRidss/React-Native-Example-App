@@ -12,7 +12,7 @@ import { Text } from "react-native";
 import {Login, Detail} from "../containers";
 
 const navigator = Actions.create(
-  
+
   <Stack
   key="root"
   backTitle=" "
@@ -25,14 +25,10 @@ const navigator = Actions.create(
   component={Login}
   type={ActionConst.RESET}
 />
-
-
     <Scene
       key="detail"
       component={Detail}
     />
-
-
   </Stack>
 );
 

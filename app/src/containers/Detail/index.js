@@ -29,6 +29,7 @@ import { Actions } from "react-native-router-flux";
 import ImageResizer from "react-native-image-resizer";
 import * as Progress from 'react-native-progress';
 import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
+// import MapView from 'react-native-maps';
 
 // =========================================================================
 
@@ -39,6 +40,7 @@ import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
 import {Fonts , Metrics , Colors, Images} from "../../theme"
 import {Text, Button, Spacer , ButtonView} from "../../components"
+import {mapStyle} from "../../constants"
 
 // ====================== import  styling for this screen ============================== //
 
@@ -61,7 +63,7 @@ import { API_USER_EDIT } from "../../config/WebService";
 
 
 class Detail extends Component {
-  
+
   static propTypes = {
     imageUploadRequest: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,

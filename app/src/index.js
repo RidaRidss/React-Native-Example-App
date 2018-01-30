@@ -18,6 +18,7 @@ import {
 } from "react-native";
 
 import { Actions } from "react-native-router-flux";
+import SplashScreen from "react-native-splash-screen";
 
 import NetworkInfo from "./services/NetworkInfo";
 import { networkInfoListener } from "./actions/NetworkInfoActions";
@@ -31,7 +32,6 @@ import applyConfigSettings from "./config";
 import AppNavigator from "./navigator";
 
 // import KeyboardManager from 'react-native-keyboard-manager'
-import SplashScreen from "react-native-splash-screen";
 
 
 import { MessageBar } from "./components";
@@ -45,7 +45,7 @@ class App extends Component {
   state = {
     isLoading: true,
     store: configureStore(reducers, () => {
-          // NativeModules.SplashScreen.hide();
+      // NativeModules.SplashScreen.hide();
       // custom splash screen added by component to fix react native fast splash delay
       this.setState({ isLoading: false });
       SplashScreen.hide();

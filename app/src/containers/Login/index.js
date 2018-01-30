@@ -155,13 +155,11 @@ class Login extends Component {
         device_type: Util.getPlatform()
       };
       this.props.request(payload);
-      Actions.detail();
     }
   };
 
 
   render() {
-    console.log("logging user data from login file",this.props.user.data)
     const { email, password, errors, secureTextEntry } = this.state;
     return (
       <View style={styles.container}>

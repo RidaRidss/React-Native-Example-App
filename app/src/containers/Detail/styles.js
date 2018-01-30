@@ -15,7 +15,7 @@ export default StyleSheet.create({
   flex :6,
   },
   buttonView:{
-flex:3
+    flex:3
   },
   button: {
     padding: Metrics.smallMargin * 1.3,
