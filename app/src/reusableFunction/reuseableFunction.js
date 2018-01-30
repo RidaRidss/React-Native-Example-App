@@ -12,8 +12,9 @@ const showAlert = (title, message) => {
     message,
     alertType: "error",
     stylesheetError: {
-      backgroundColor: "rgba(0, 167, 153, 1)",
-      strokeColor: "white"
+      backgroundColor: Colors.tertiary,
+      strokeColor: "white",
+      color:"white"
     }
   });
 };

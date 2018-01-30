@@ -7,7 +7,6 @@ import filter from "redux-storage-decorator-filter";
 import { composeWithDevTools } from "remote-redux-devtools";
 import { createStore, applyMiddleware } from "redux";
 import createEngine from "redux-storage-engine-reactnativeasyncstorage";
-// import reducerName from "../reducers/reducerName";
 import sagas from "../sagas";
 
 const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
@@ -24,7 +23,7 @@ export default function configureStore(reducers, onComplete: Function) {
     createEngine("AppTree"),
     [
       "whitelisted-key",
-      // ["user", "data"]
+      ["user", "data"]
     ],
     []
   );

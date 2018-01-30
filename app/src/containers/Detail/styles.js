@@ -17,6 +17,13 @@ export default StyleSheet.create({
   buttonView:{
 flex:3
   },
+  button: {
+    padding: Metrics.smallMargin * 1.3,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: Metrics.baseMargin,
+    backgroundColor: Colors.tertiary
+  },
   progressView:{
     flex:4,
     justifyContent:"flex-end",

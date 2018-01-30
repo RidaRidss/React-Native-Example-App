@@ -1,5 +1,10 @@
 export const BACK_SCENES = "login";
 
+// ============ SERVICE IMAGE UPLOAD ENTITY ID ==================
+
+export const IMAGE_ENTITY_TYPE_ID = 8;
+
+
 // ---------------Date Time Formatting  ------------------
 
 export const TIME_ZONE = -1 * new Date().getTimezoneOffset() / 60;
@@ -9,6 +14,7 @@ export const TIME_ONLY_FORMAT = "hh:mm A";
 export const TIME_FORMAT_24_HOUR = "HH:mm";
 export const SERVER_DATE_FORMAT = "YYYY-MM-DD HH:mm";
 // ---------------------------------
+
 export const MILES_LIMIT = 10;
 export const COLLAPSIBLE_LIMIT = 50;
 export const MIN_RADIUS = 10;

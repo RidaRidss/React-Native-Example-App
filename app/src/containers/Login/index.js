@@ -1,24 +1,62 @@
 // @flow
+
+// ============== import redux libraries to connect redux =============== //
+
 import { connect } from "react-redux";
 import React, { Component } from "react";
+
+// ==== import 'lodash' library to explore response values from api ===== //
+
 import _ from "lodash";
+
+// =========================================================================
+
+// ======== import PropType to check props getting in this screens ============
+
 import PropTypes from "prop-types";
 
-import { View, StyleSheet , Platform} from "react-native";
+// =========================================================================
+
+
+// ============ import actions support library ============================= //
+
 import { Actions } from "react-native-router-flux";
+
+// =========================================================================
+
+// ============ import ui support libraries ============================= //
+
 import { TextField } from 'react-native-material-textfield';
 import * as Progress from 'react-native-progress';
+import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
 
+// =========================================================================
+
+
+// ============= import general custom settings support methods/components ============== //
 
 import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
 import {Fonts , Metrics , Colors} from "../../theme"
-import {Text, Button, Spacer} from "../../components"
+import {Text, Button, Spacer , ButtonView} from "../../components"
+
+// ====================== import  styling for this screen ============================== //
+
 import styles from "./styles";
 
+// =======================================================================================
 
-class Home extends Component {
-  
+// =============== import user signin request action ======================== //
+
+import { request } from "../../actions/SignIn";
+
+// ==========================================================================
+
+class Login extends Component {
+  static propTypes = {
+    request: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -73,28 +111,16 @@ class Home extends Component {
     this.setState({ errors });
   };
 
-  _onSubmit = () => {
-    const errors = {};
-    let hasErrors = true;
-    ["email", "password"].forEach(name => {
-      const value = this[name].value();
-
-      if (!value || ("email" === name && !Util.isEmailValid(value))) {
-        errors[name] = "Invalid Email";
-      } else if (!value || ("password" === name && value.length < 6)) {
-        errors[name] = "Too short";
-      } else {
-        hasErrors = false;
-      }
-    });
-
-    this.setState({ errors });
-    if (!hasErrors) {
-     alert("successfully Login");
+  _renderActivityIndicator() {
+    if (this.props.user.isFetching) {
+      return (
+        <View style={{ position: "absolute", right: Metrics.baseMargin }}>
+          <ActivityIndicator animating color="white" size="small" />
+        </View>
+      );
     }
-  };
-
-
+    return null;
+  }
 
   _onLogin = () => {
     const { email, password } = this.state;
@@ -128,13 +154,14 @@ class Home extends Component {
         password,
         device_type: Util.getPlatform()
       };
-      alert("successfully Login");
-      // this.props.request(payload);
+      this.props.request(payload);
+      Actions.detail();
     }
   };
 
 
   render() {
+    console.log("logging user data from login file",this.props.user.data)
     const { email, password, errors, secureTextEntry } = this.state;
     return (
       <View style={styles.container}>
@@ -202,10 +229,13 @@ class Home extends Component {
     />
       </View>
       <View style={styles.buttonView}>
-      <Button onPress={this._onLogin} style={styles.button} title="Next" type={Fonts.type.book} size={40} background={Colors.tertiary} color="white">Next</Button>
+      <ButtonView style={styles.button} onPress={this._onLogin}>
+      <Text color="secondary" type="book" size="large">Login</Text>
+      {this._renderActivityIndicator()}
+      </ButtonView>
       </View>
       <View style={styles.progressView}>
-      <Progress.Bar color={Colors.tertiary} progress={0.3} width={200} />
+      <Progress.Bar color={Colors.tertiary} progress={0.5} width={200} />
       </View>
       <Spacer />
       </View>
@@ -213,10 +243,19 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ route }) => ({
-  route
+// map user signin request
+
+const mapStateToProps = ({ user }) => ({
+  user
 });
 
-const actions = {};
+// =========================================================================
 
-export default connect(mapStateToProps, actions)(Home);
+
+// register user signin actions
+
+const actions = { request };
+
+// =========================================================================
+
+export default connect(mapStateToProps, actions)(Login);

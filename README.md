@@ -1,6 +1,20 @@
 # React-Native-Example-App
 
 
+#### api integrated  , add your service base_url , username , pass and get started
+
+
+##### Facebook , device location integrated for ios & android both
+
+
+#### add below permission to access internet connection in ios
+
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+
 #### add below permissions to access (calendar,photo gallery,camera,bluetooth,device location,speech recognization,contacts,background notification) in plist file for IOS
 
 `    <key>NSBluetoothPeripheralUsageDescription</key>

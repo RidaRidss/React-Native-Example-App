@@ -2,13 +2,12 @@ import { takeLatest, put, call } from "redux-saga/effects";
 import * as types from "../actions/ActionTypes";
 import {
   API_ENTITY_ATTACHMENT_FILE,
-  API_ENTITY_CREATE,
   API_USER_EDIT,
-  API_ENTITY_UPDATE
 } from "../config/WebService";
 import ApiSauce from "../services/ApiSauce";
 import { IMAGE_ENTITY_TYPE_ID } from "../constants";
 import { success, failure } from "../actions/AttachmentFile";
+import { request as userEdit } from "../actions/UserEdit";
 
 function callRequest(data) {
   return ApiSauce.postImage(API_ENTITY_ATTACHMENT_FILE, data, {
@@ -39,23 +38,6 @@ function* watchRequest(action) {
     //     yield put(request(files, newIndex));
     // }
 
-    if (api === API_ENTITY_CREATE && entityTypeId === "spot") {
-      yield put(
-        createSpotRequest({
-          ...payload,
-          gallery_items: response.data.attachment.attachment_id
-        })
-      );
-    }
-    if (api === API_ENTITY_CREATE && entityTypeId === 7) {
-      yield put(
-        createEventRequest({
-          ...payload,
-          gallery_items: response.data.attachment.attachment_id
-        })
-      );
-    }
-
     if (api === API_USER_EDIT) {
       yield put(
         userEdit({
@@ -65,23 +47,6 @@ function* watchRequest(action) {
       );
     }
 
-    if (api === API_ENTITY_UPDATE && entityTypeId === 7) {
-      yield put(
-        updateEventRequest({
-          ...payload,
-          gallery_items: response.data.attachment.attachment_id
-        })
-      );
-    }
-
-    if (api === API_ENTITY_UPDATE) {
-      yield put(
-        updateSpotReqeust({
-          ...payload,
-          gallery_items: response.data.attachment.attachment_id
-        })
-      );
-    }
 
     yield put(success(response.data.attachment, index, false));
   } catch (err) {

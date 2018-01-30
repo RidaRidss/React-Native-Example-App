@@ -34,13 +34,9 @@ class Util {
 
   keyExtractor = (item: Object, index: number) => index;
 
-  isPlatformAndroid() {
-    return Platform.OS === "android";
-  }
+  isPlatformAndroid = () => Platform.OS === "android";
 
   getPlatform = () => Platform.OS;
-
-  isPlatformAndroid = () => Platform.OS === "android";
 
   isPlatformIOS = () => Platform.OS === "ios";
 

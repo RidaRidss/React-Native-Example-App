@@ -9,27 +9,34 @@ import { Provider } from "react-redux";
 import {
   AppRegistry,
   NativeModules,
-  StatusBar,
+  // StatusBar,
   Platform,
-  AppState,
-  BackHandler,
+  // AppState,
+  // BackHandler,
   PermissionsAndroid,
-  StyleSheet,
-  Text,
   View
 } from "react-native";
 
-// import KeyboardManager from 'react-native-keyboard-manager'
-import SplashScreen from "react-native-splash-screen";
-import applyConfigSettings from "./config";
+import { Actions } from "react-native-router-flux";
+
 import NetworkInfo from "./services/NetworkInfo";
 import { networkInfoListener } from "./actions/NetworkInfoActions";
-import configureStore from "./store";
+import LocationServices from "./services/LocationService";
+import { request, success, failure } from "./actions/UserLocationActions";
+
 const reducers = require("./reducers").default;
 
-import { Actions } from "react-native-router-flux";
+import configureStore from "./store";
+import applyConfigSettings from "./config";
 import AppNavigator from "./navigator";
 
+// import KeyboardManager from 'react-native-keyboard-manager'
+import SplashScreen from "react-native-splash-screen";
+
+
+import { MessageBar } from "./components";
+
+import Utils from "./util";
 
 applyConfigSettings();
 
@@ -47,48 +54,72 @@ class App extends Component {
   // constructor() {
   //   super(); 
 
-  //   // ===== uncoment below lines of code if keyboard toolbar is not working in ios from config code , import first on top
+  //   // ===== uncoment constructor of code if keyboard toolbar is not working in ios from config code , import first on top
 
   //   // KeyboardManager.setEnable(true);
   //   // KeyboardManager.setToolbarPreviousNextButtonEnable(true);
  
   //   // =========================================================
   // }
+
   componentDidMount() {
-     //   // StatusBar.setBarStyle("light-content");
-  //   // StatusBar.setBarStyle("dark-content");
-    
-  //   // Actions.refresh({
-  //   //     onRight: () => null
-  //   //     ,
-  //   //     onLeft: () => null
-  //   //   });
     NetworkInfo.networkInfoListener(
       this.state.store.dispatch,
       networkInfoListener
     );
-    // Utils.isPlatformAndroid()
-    //   ? this._requestLocationPermission()
-    //   : this._startLocationService(true);
+    Utils.isPlatformAndroid()
+      ? this._requestLocationPermission()
+      : this._startLocationService(true);
   }
-  // componentWillReceiveProps(nextProps) {
-  //   // Actions.refresh({
-  //   //     onRight: () => null
-  //   //     ,
-  //   //     onLeft: () => null
-  //   //   });
-  // }
-//   componentWillMount() {
-// }
-// shouldComponentUpdate(nextProps: Object, nextState: Object) { 
 
-// }
   componentWillUnmount() {
     NetworkInfo.removeNetworkInfoListener(
       this.state.store.dispatch,
       networkInfoListener
     );
-    // navigator.geolocation.clearWatch(LocationServices.getWatchID());
+    navigator.geolocation.clearWatch(LocationServices.getWatchID());
+  }
+
+  _requestLocationPermission = async () => {
+    const check = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
+
+    if (!check) {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Permission",
+            message: "Running Partner needs location permission to work."
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Location permission granted
+          this._startLocationService(granted);
+        } else {
+          // Location permission denied
+          this.state.store.dispatch(request(granted));
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      // location permission already allowed
+      this._startLocationService(
+        this.state.store.getState().userLocation.permissionGranted
+      );
+    }
+  };
+
+  _startLocationService(granted) {
+    this.state.store.dispatch(request(granted));
+    LocationServices.startLocationService(
+      success,
+      failure,
+      this.state.store.dispatch,
+      navigator.geolocation
+    );
   }
 
   render() {
@@ -101,8 +132,8 @@ class App extends Component {
         <Provider store={this.state.store}>
           <AppNavigator />
         </Provider>
+        <MessageBar />
         </View>
-        // <MessageBar />
     );
   }
 }

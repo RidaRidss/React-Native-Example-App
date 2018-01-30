@@ -1,8 +1,9 @@
 // @flow
+import MessageBar from "./MessageBar";
 import Text from "./Text";
 import Button from "./Button";
 import Spacer from "./Spacer";
-// import ButtonView from "./ButtonView";
+import ButtonView from "./ButtonView";
 // // import Facebook from "./Facebook";
 // import LocationButton from "./LocationButton";
 // import FlatList from "./FlatList";
@@ -28,7 +29,6 @@ import Spacer from "./Spacer";
 // import SearchBar from "./SearchBar";
 // import Comments from "./Comments";
 // import Gallery from "./Gallery";
-// import MessageBar from "./MessageBar";
 // import AppState from "./AppState";
 // import ActionSheet from "./ActionSheet";
 // import ButtonGradient from "./ButtonGradient";
@@ -48,7 +48,9 @@ import Spacer from "./Spacer";
 // import ActivityIndicator from "./ActivityIndicator";
 
 export {
+  MessageBar,
   Text,
+  ButtonView,
   Button,
   Spacer
   // ButtonGradient,
@@ -68,9 +70,7 @@ export {
   // Loader,
   // ActivityIndicator,
   // ActionSheet,
-  // MessageBar,
   // Loading,
-  // ButtonView,
   // // Facebook,
   // FlatList,
   // Hoshi,
