@@ -12,7 +12,7 @@ export default StyleSheet.create({
     backgroundColor:Colors.background.primary
   },
   fieldView:{
-    flex :6,
+    flex :8,
     justifyContent:"center"
   },
   securityImage : {
@@ -27,8 +27,7 @@ export default StyleSheet.create({
     padding: Metrics.smallMargin * 1.3,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.tertiary,
-    marginBottom: Metrics.baseMargin
+    backgroundColor: Colors.tertiary
   },
   button2: {
     backgroundColor: Colors.secondary

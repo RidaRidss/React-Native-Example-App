@@ -28,7 +28,7 @@ import { Actions } from "react-native-router-flux";
 
 import { TextField } from 'react-native-material-textfield';
 import * as Progress from 'react-native-progress';
-import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
+import { View, StyleSheet , Platform, ActivityIndicator, Image} from "react-native";
 
 // =========================================================================
 
@@ -37,8 +37,9 @@ import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
 
 import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
-import {Fonts , Metrics , Colors} from "../../theme"
+import {Fonts , Metrics , Colors, Images} from "../../theme"
 import {Text, Button, Spacer , ButtonView} from "../../components"
+import { USER_ENTITY_ID } from "../../constants";
 
 // ====================== import  styling for this screen ============================== //
 
@@ -53,10 +54,17 @@ import { request } from "../../actions/SignIn";
 // ==========================================================================
 
 class Login extends Component {
+
+ // ========== getting request props as required =============================
+
   static propTypes = {
     request: PropTypes.func.isRequired
   };
+  
+// ==================================================================================
 
+// ===== Defining state params initially in constructor b/c it will serve first =====
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -67,6 +75,8 @@ class Login extends Component {
     };
   }
 
+// ==================================================================================
+  
   email;
   password;
 
@@ -83,16 +93,23 @@ class Login extends Component {
     const name = "show?";
 
     return (
-      <Text
-        onPress={() => this._onAccessoryPress()}
-        style={{
-          // color: "primary",
-          fontSize: Fonts.size.normal,
-          fontFamily: Fonts.type.medium
-        }}
-      >
-        {name}
-      </Text>
+    // uncomment if accessory should be a text on password field
+
+          // <Text
+          //   onPress={() => this._onAccessoryPress()}
+          //   style={{
+          //     // color: "primary",
+          //     fontSize: Fonts.size.normal,
+          //     fontFamily: Fonts.type.medium
+          //   }}
+          // >
+          //   {name}
+          // </Text>
+    // ============================================================
+
+      <ButtonView onPress={() => this._onAccessoryPress()}>
+      <Image style={styles.securityImage} source={Images.security}/>
+      </ButtonView>
     );
   };
 
@@ -149,7 +166,7 @@ class Login extends Component {
       }, 500);
     } else {
       const payload = {
-        entity_type_id: 5,
+        entity_type_id: USER_ENTITY_ID,
         login_id: email,
         password,
         device_type: Util.getPlatform()
@@ -160,7 +177,13 @@ class Login extends Component {
 
 
   render() {
+
+  // ===================== GETTING STATE PARAMS =========================== //
+
     const { email, password, errors, secureTextEntry } = this.state;
+
+ // ==========================================================================
+
     return (
       <View style={styles.container}>
       <View style={styles.fieldView}>
@@ -230,6 +253,9 @@ class Login extends Component {
       <ButtonView style={styles.button} onPress={this._onLogin}>
       <Text color="secondary" type="book" size="large">Login</Text>
       {this._renderActivityIndicator()}
+      </ButtonView>
+      <ButtonView style={[styles.button,styles.button2]} onPress={()=>Actions.signup()}>
+      <Text color="secondary" type="book" size="large">SignUp</Text>
       </ButtonView>
       </View>
       <View style={styles.progressView}>

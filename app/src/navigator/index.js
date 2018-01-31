@@ -9,7 +9,7 @@ import {
   ActionConst
 } from "react-native-router-flux";
 import { Text } from "react-native";
-import {Login, Detail} from "../containers";
+import {Signup , Login , Detail} from "../containers";
 
 const navigator = Actions.create(
 
@@ -18,10 +18,13 @@ const navigator = Actions.create(
   backTitle=" "
   tintColor="white"
   >  
-
+  <Scene
+  key="signup"
+  component={Signup}
+  />
   <Scene
   initial
-  key="home"
+  key="login"
   component={Login}
   type={ActionConst.RESET}
 />

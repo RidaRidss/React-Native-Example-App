@@ -14,6 +14,14 @@ export default StyleSheet.create({
   fieldView:{
   flex :6,
   },
+  mapView:{
+    // flex:1,
+    width:Metrics.screenWidth,
+    height:Metrics.doubleBaseMargin * 4
+  },
+  map:{
+flex:1
+  },
   buttonView:{
     flex:3
   },

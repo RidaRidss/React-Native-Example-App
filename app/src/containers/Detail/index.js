@@ -29,7 +29,7 @@ import { Actions } from "react-native-router-flux";
 import ImageResizer from "react-native-image-resizer";
 import * as Progress from 'react-native-progress';
 import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
-// import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 
 // =========================================================================
 
@@ -40,7 +40,12 @@ import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
 import {Fonts , Metrics , Colors, Images} from "../../theme"
 import {Text, Button, Spacer , ButtonView} from "../../components"
-import {mapStyle} from "../../constants"
+import {
+  RADIUS_DISTANCE,
+  LATITUDE_DELTA,
+  LONGITUDE_DELTA,
+  mapStyle
+} from "../../constants";
 
 // ====================== import  styling for this screen ============================== //
 
@@ -64,14 +69,22 @@ import { API_USER_EDIT } from "../../config/WebService";
 
 class Detail extends Component {
 
+   // ========== getting request props as required =============================
+
   static propTypes = {
-    imageUploadRequest: PropTypes.object.isRequired,
+    userLocation: PropTypes.object.isRequired,
+    imageUploadRequest: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    userEditRequest: PropTypes.object.isRequired,
+    userEditRequest: PropTypes.func.isRequired,
     attachmentFile: PropTypes.object.isRequired
   };
+  
+// ==================================================================================
+
+// ===== Defining state params initially in constructor b/c it will serve first =====
 
   constructor(props) {
+
     super(props);
 
     const data = props.user.data;
@@ -81,6 +94,8 @@ class Detail extends Component {
         email: "",
         password: "",
         errors: {},
+        initialRegion: {},
+        moveToUserLocation: true,
         // image: this._getGallery(data),
         // imageChanged: false
         // dob: undefined,
@@ -94,6 +109,7 @@ class Detail extends Component {
 
   email;
   password;
+
 
 // ============= getting user data from api =============== //
 
@@ -169,9 +185,13 @@ class Detail extends Component {
       <Text size="xxLarge" color="primary" type="black">Profile</Text>
       <Text size="xxLarge" color="primary" type="black">{name}</Text>
       </View>
+
       <View style={styles.buttonView}>
-      <ButtonView style={styles.button} onPress={this._onSubmitForm}>
-      <Text color="secondary" type="book" size="large">NEXT</Text>
+      <ButtonView style={styles.button} 
+      // onPress={this._onSubmitForm}
+       onPress={() => this._gotoCurrentLocation()}
+      >
+      <Text color="secondary" type="book" size="large">current location</Text>
       {this._renderActivityIndicator()}
       </ButtonView>
       </View>
@@ -183,6 +203,7 @@ class Detail extends Component {
       
     );
   }
+
 
 // =================== edit user info request payload =============== //
 
@@ -271,7 +292,8 @@ const mapStateToProps = state => ({
   // ============= maping user edit detail request  ============= //
 
   user: state.user,
-  attachmentFile: state.attachmentFile
+  attachmentFile: state.attachmentFile,
+  userLocation:state.userLocation
 
 // ================================================================= //  
 

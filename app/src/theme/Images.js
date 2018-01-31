@@ -4,6 +4,8 @@
 const home_active = require("../assets/images/homeselected.png");
 const home = require("../assets/images/home.png");
 const navigateBlack = require("../assets/images/navigateBlack.png");
+const security = require("../assets/images/pass.png");
+
 
 
 // No Need To Define Gifs , use in particular file by gif's existing path
@@ -11,6 +13,7 @@ const navigateBlack = require("../assets/images/navigateBlack.png");
 
 export default {
   navigateBlack,
+  security,
   tabActiveIcons: [
     home_active,
 

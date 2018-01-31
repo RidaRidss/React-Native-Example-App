@@ -8,7 +8,7 @@ export const API_TIMEOUT = 30000;
 export const API = "/api/";
 
 // GET API LOGS BY CHANGE API LOG_VALUE "TRUE"
-export const API_LOG = false;
+export const API_LOG = true;
 
 
 // USER API ROUTES

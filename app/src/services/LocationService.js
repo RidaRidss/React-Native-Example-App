@@ -1,5 +1,3 @@
-// =========== Get Device Location code is here ========== //
-
 import {
   LOCATION_TIME_OUT,
   LOCATION_MAX_AGE,

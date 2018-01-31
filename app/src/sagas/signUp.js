@@ -14,7 +14,7 @@ function* watchRequest() {
     try {
       const response = yield call(callRequest, payload);
       yield put(success(response.data.user));
-      Actions.completeProfile({ type: "reset" });
+      Actions.detail({ type: "reset" });
     } catch (err) {
       yield put(failure(err.message));
     }

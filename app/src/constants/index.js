@@ -1,9 +1,16 @@
 export const BACK_SCENES = "login";
 
+// ============ USING ENTITY FRAMEWORK SERVICES =================
+
 // ============ SERVICE IMAGE UPLOAD ENTITY ID ==================
+
+export const USER_ENTITY_ID = 5;
+
+// ============ SERVICE USER ENTITY ID ==================
 
 export const IMAGE_ENTITY_TYPE_ID = 8;
 
+// ======================================================
 
 // ---------------Date Time Formatting  ------------------
 
