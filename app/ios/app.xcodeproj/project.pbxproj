@@ -1728,7 +1728,8 @@
 			baseConfigurationReference = 08994BF08000844270E39660 /* Pods-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: rida.sarwar@cubixlabs.com (4B2SZD8MBZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: rida.sarwar@cubixlabs.com (4B2SZD8MBZ)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1760,8 +1761,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example;
 				PRODUCT_NAME = app;
-				PROVISIONING_PROFILE = "daa62d81-2b06-4402-92ef-90a2a882ef7d";
+				PROVISIONING_PROFILE = "13e8d8aa-b79a-4d61-a413-db70fdf4e255";
 				PROVISIONING_PROFILE_SPECIFIER = "Cubix Dist Updated";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=*]" = "iPhone Cubix Distribution";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1772,7 +1774,8 @@
 			baseConfigurationReference = EAB81E2D4877031ECE8E38D9 /* Pods-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cubix Labs, Inc. (3K24B25FCL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cubix Labs, Inc. (3K24B25FCL)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3K24B25FCL;
@@ -1803,8 +1806,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example;
 				PRODUCT_NAME = app;
-				PROVISIONING_PROFILE = "daa62d81-2b06-4402-92ef-90a2a882ef7d";
-				PROVISIONING_PROFILE_SPECIFIER = "Cubix Dist Updated";
+				PROVISIONING_PROFILE = "76545b5b-0edd-4a95-a1eb-55adb08c2825";
+				PROVISIONING_PROFILE_SPECIFIER = "iPhone Cubix Distribution";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

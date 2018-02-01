@@ -12,18 +12,11 @@ export default StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   fieldView:{
-  flex :6,
-  },
-  mapView:{
-    // flex:1,
-    width:Metrics.screenWidth,
-    height:Metrics.doubleBaseMargin * 4
-  },
-  map:{
-flex:1
+  flex :8,
   },
   buttonView:{
-    flex:3
+    flex:2,
+    justifyContent:"flex-end"
   },
   button: {
     padding: Metrics.smallMargin * 1.3,

@@ -66,7 +66,6 @@ import { API_USER_EDIT } from "../../config/WebService";
 
 // ==========================================================================
 
-
 class Detail extends Component {
 
    // ========== getting request props as required =============================
@@ -84,7 +83,6 @@ class Detail extends Component {
 // ===== Defining state params initially in constructor b/c it will serve first =====
 
   constructor(props) {
-
     super(props);
 
     const data = props.user.data;
@@ -115,7 +113,7 @@ class Detail extends Component {
 
   _user() {
     return this.props.user.data;
-  }
+  } 
 
 // ============= submit edit user request form =============== //
 
@@ -185,13 +183,10 @@ class Detail extends Component {
       <Text size="xxLarge" color="primary" type="black">Profile</Text>
       <Text size="xxLarge" color="primary" type="black">{name}</Text>
       </View>
-
+          
       <View style={styles.buttonView}>
-      <ButtonView style={styles.button} 
-      // onPress={this._onSubmitForm}
-       onPress={() => this._gotoCurrentLocation()}
-      >
-      <Text color="secondary" type="book" size="large">current location</Text>
+      <ButtonView style={styles.button} onPress={()=>null}>
+      <Text color="secondary" type="book" size="large">Next</Text>
       {this._renderActivityIndicator()}
       </ButtonView>
       </View>
@@ -289,7 +284,7 @@ class Detail extends Component {
 
 const mapStateToProps = state => ({
 
-  // ============= maping user edit detail request  ============= //
+  // ============= maping user & userLocation no  need to import its reducer , this will map by reducer , & also mapping attachment file from reducer ============= //
 
   user: state.user,
   attachmentFile: state.attachmentFile,
@@ -301,12 +296,33 @@ const mapStateToProps = state => ({
 
 const actions = { 
 
-// ============= register user edit detail actions  ============= //
-
+// ============= registering image upload & user edit request actions  ============= //
   imageUploadRequest,
-   userEditRequest 
+  userEditRequest
 };
 
 // ================================================================= //  
 
 export default connect(mapStateToProps, actions)(Detail);
+
+
+// <MapView
+//   style={styles.map}
+//   maxZoomLevel={10}
+//   provider="google"
+//   loadingEnabled
+//   ref={ref => {
+//     this.map = ref;
+//   }}
+//   showsBuildings={false}
+//   showsUserLocation
+//   customMapStyle={mapStyle}
+//   image={Images.navigate}
+//   toolbarEnabled={false}
+//   initialRegion={{
+//     longitude: -73.98113060742617,
+//     latitudeDelta: 0.0272457629830285,
+//     latitude: 40.76143331655857,
+//     longitudeDelta: 0.030134618282318115
+//     }}
+// />
