@@ -15,18 +15,14 @@ function createRequestTypes(base) {
 // empty action type , Demo to create an action type
 export const EMPTY = createRequestTypes("EMPTY");
 
-
 // network related action type
 export const NETWORK_INFO = "NETWORK_INFO";
-
 
 // get user device location action type
 export const USER_LOCATION = createRequestTypes("USER_LOCATION");
 
-
 // file upload action type
 export const ATTACHMENT_FILE = createRequestTypes("ATTACHMENT_FILE");
-
 
 // user related action types
 export const SOCIAL_LOGIN = createRequestTypes("SOCIAL_LOGIN");
@@ -36,6 +32,7 @@ export const SIGN_UP = createRequestTypes("SIGN_UP");
 export const USER_EDIT = createRequestTypes("USER_EDIT");
 export const FORGOT_PASSWORD = createRequestTypes("FORGOT_PASSWORD");
 export const CHANGE_PASSWORD = createRequestTypes("CHANGE_PASSWORD");
+export const CHAT_LIST = createRequestTypes("CHAT_LIST");
+export const CHAT_HISTORY = createRequestTypes("CHAT_HISTORY");
+export const CHAT_HISORY_CLEAR = "CHAT_HISORY_CLEAR";
 export const LOGOUT = "LOGOUT";
-
-

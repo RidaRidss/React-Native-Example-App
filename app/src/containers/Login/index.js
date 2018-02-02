@@ -17,7 +17,6 @@ import PropTypes from "prop-types";
 
 // =========================================================================
 
-
 // ============ import actions support library ============================= //
 
 import { Actions } from "react-native-router-flux";
@@ -26,19 +25,24 @@ import { Actions } from "react-native-router-flux";
 
 // ============ import ui support libraries ============================= //
 
-import { TextField } from 'react-native-material-textfield';
-import * as Progress from 'react-native-progress';
-import { View, StyleSheet , Platform, ActivityIndicator, Image} from "react-native";
+import { TextField } from "react-native-material-textfield";
+import * as Progress from "react-native-progress";
+import {
+  View,
+  StyleSheet,
+  Platform,
+  ActivityIndicator,
+  Image
+} from "react-native";
 
 // =========================================================================
-
 
 // ============= import general custom settings support methods/components ============== //
 
 import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
-import {Fonts , Metrics , Colors, Images} from "../../theme"
-import {Text, Button, Spacer , ButtonView} from "../../components"
+import { Fonts, Metrics, Colors, Images } from "../../theme";
+import { Text, Button, Spacer, ButtonView, Facebook } from "../../components";
 import { USER_ENTITY_ID } from "../../constants";
 
 // ====================== import  styling for this screen ============================== //
@@ -54,17 +58,16 @@ import { request } from "../../actions/SignIn";
 // ==========================================================================
 
 class Login extends Component {
-
- // ========== getting request props as required =============================
+  // ========== getting request props as required =============================
 
   static propTypes = {
     request: PropTypes.func.isRequired
   };
-  
-// ==================================================================================
 
-// ===== Defining state params initially in constructor b/c it will serve first =====
-  
+  // ==================================================================================
+
+  // ===== Defining state params initially in constructor b/c it will serve first =====
+
   constructor(props) {
     super(props);
     this.state = {
@@ -75,11 +78,10 @@ class Login extends Component {
     };
   }
 
-// ==================================================================================
-  
+  // ==================================================================================
+
   email;
   password;
-
 
   _onAccessoryPress = () => {
     this.setState({
@@ -93,26 +95,25 @@ class Login extends Component {
     const name = "show?";
 
     return (
-    // uncomment if accessory should be a text on password field
+      // uncomment if accessory should be a text on password field
 
-          // <Text
-          //   onPress={() => this._onAccessoryPress()}
-          //   style={{
-          //     // color: "primary",
-          //     fontSize: Fonts.size.normal,
-          //     fontFamily: Fonts.type.medium
-          //   }}
-          // >
-          //   {name}
-          // </Text>
-    // ============================================================
+      // <Text
+      //   onPress={() => this._onAccessoryPress()}
+      //   style={{
+      //     // color: "primary",
+      //     fontSize: Fonts.size.normal,
+      //     fontFamily: Fonts.type.medium
+      //   }}
+      // >
+      //   {name}
+      // </Text>
+      // ============================================================
 
       <ButtonView onPress={() => this._onAccessoryPress()}>
-      <Image style={styles.securityImage} source={Images.security}/>
+        <Image style={styles.securityImage} source={Images.security} />
       </ButtonView>
     );
   };
-
 
   _onFocus = () => {
     const { errors = {} } = this.state;
@@ -175,93 +176,103 @@ class Login extends Component {
     }
   };
 
-
   render() {
-
-  // ===================== GETTING STATE PARAMS =========================== //
+    // ===================== GETTING STATE PARAMS =========================== //
 
     const { email, password, errors, secureTextEntry } = this.state;
 
- // ==========================================================================
+    // ==========================================================================
 
     return (
       <View style={styles.container}>
-      <View style={styles.fieldView}>
-      <Text size="xxLarge" color="primary" type="black">LOG IN</Text>
-        <TextField
-        ref={ref => {
-          this.email = ref;
-        }}
-        value={email}
-        onFocus={this._onFocus}
-        onChangeText={value => this.setState({ email: value })}
-        onSubmitEditing={() => this.password.focus()}
-        returnKeyType="next"
-        label="Email"
-        error={errors.email}
-        title=" "
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        enablesReturnKeyAutomatically
-        labelStyle={{
-          color: Colors.text.tertiary,
-          fontFamily: Fonts.type.medium,
-          fontSize: Fonts.size.normal
-        }}
-        labelFontSize={Fonts.size.xSmall}
-        tintColor={Colors.text.primary}
-        textColor={Colors.text.primary}
-        style={{
-          fontFamily: Fonts.type.medium,
-          fontSize: Fonts.size.normal
-        }}
-      />
-      <TextField
-      labelStyle={{
-        color: Colors.text.tertiary,
-        fontFamily: Fonts.type.medium,
-        fontSize: Fonts.size.normal
-      }}
-      labelFontSize={Fonts.size.xSmall}
-      tintColor={Colors.text.primary}
-      textColor={Colors.text.primary}
-      style={{
-        fontFamily: Fonts.type.medium,
-        fontSize: Fonts.size.normal
-      }}
-      label="Password"
-      renderAccessory={this._renderPasswordAccessory}
-      ref={ref => {
-        this.password = ref;
-      }}
-      value={password}
-      secureTextEntry={secureTextEntry}
-      autoCapitalize="none"
-      autoCorrect={false}
-      enablesReturnKeyAutomatically
-      returnKeyType="next"      
-      onFocus={this._onFocus}
-      onChangeText={value => this.setState({ password: value })}
-      onSubmitEditing={this._onLogin}
-      returnKeyType="done"
-      error={errors.password}
-      maxLength={30}
-    />
-      </View>
-      <View style={styles.buttonView}>
-      <ButtonView style={styles.button} onPress={this._onLogin}>
-      <Text color="secondary" type="book" size="large">Login</Text>
-      {this._renderActivityIndicator()}
-      </ButtonView>
-      <ButtonView style={[styles.button,styles.button2]} onPress={()=>Actions.signup()}>
-      <Text color="secondary" type="book" size="large">SignUp</Text>
-      </ButtonView>
-      </View>
-      <View style={styles.progressView}>
-      <Progress.Bar color={Colors.tertiary} progress={0.5} width={200} />
-      </View>
-      <Spacer />
+        <View style={styles.fieldView}>
+          <Text size="xxLarge" color="primary" type="black">
+            LOG IN
+          </Text>
+          <TextField
+            ref={ref => {
+              this.email = ref;
+            }}
+            value={email}
+            onFocus={this._onFocus}
+            onChangeText={value => this.setState({ email: value })}
+            onSubmitEditing={() => this.password.focus()}
+            returnKeyType="next"
+            label="Email"
+            error={errors.email}
+            title=" "
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            enablesReturnKeyAutomatically
+            labelStyle={{
+              color: Colors.text.tertiary,
+              fontFamily: Fonts.type.medium,
+              fontSize: Fonts.size.normal
+            }}
+            labelFontSize={Fonts.size.xSmall}
+            tintColor={Colors.text.primary}
+            textColor={Colors.text.primary}
+            style={{
+              fontFamily: Fonts.type.medium,
+              fontSize: Fonts.size.normal
+            }}
+          />
+          <TextField
+            labelStyle={{
+              color: Colors.text.tertiary,
+              fontFamily: Fonts.type.medium,
+              fontSize: Fonts.size.normal
+            }}
+            labelFontSize={Fonts.size.xSmall}
+            tintColor={Colors.text.primary}
+            textColor={Colors.text.primary}
+            style={{
+              fontFamily: Fonts.type.medium,
+              fontSize: Fonts.size.normal
+            }}
+            label="Password"
+            renderAccessory={this._renderPasswordAccessory}
+            ref={ref => {
+              this.password = ref;
+            }}
+            value={password}
+            secureTextEntry={secureTextEntry}
+            autoCapitalize="none"
+            autoCorrect={false}
+            enablesReturnKeyAutomatically
+            returnKeyType="next"
+            onFocus={this._onFocus}
+            onChangeText={value => this.setState({ password: value })}
+            onSubmitEditing={this._onLogin}
+            returnKeyType="done"
+            error={errors.password}
+            maxLength={30}
+          />
+        </View>
+        <View style={styles.facebook}>
+          <Facebook />
+        </View>
+        <View style={styles.buttonView}>
+          <ButtonView style={styles.button} onPress={this._onLogin}>
+            <Text color="secondary" type="book" size="large">
+              Login
+            </Text>
+            {this._renderActivityIndicator()}
+          </ButtonView>
+          <ButtonView
+            style={[styles.button, styles.button2]}
+            onPress={() => Actions.signup()}
+          >
+            <Text color="secondary" type="book" size="large">
+              SignUp
+            </Text>
+          </ButtonView>
+        </View>
+        <View style={styles.progressView}>
+          <Progress.Bar color={Colors.tertiary} progress={0.5} width={200} />
+        </View>
+        <Spacer />
       </View>
     );
   }
@@ -274,7 +285,6 @@ const mapStateToProps = ({ user }) => ({
 });
 
 // =========================================================================
-
 
 // register user signin actions
 

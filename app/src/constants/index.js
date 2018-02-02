@@ -28,6 +28,10 @@ export const MIN_RADIUS = 10;
 export const MAX_RADIUS = 100;
 export const Pagination_LIMIT = 10;
 
+// =========== CHAT DURATION SETTING ======= //
+
+export const CHAT_DURATION = 30;
+
 // =========== MAP SETTINGS ============= //
 
 export const DISTANCE_UNIT = "Km";
@@ -36,7 +40,7 @@ export const MILES_DIFFERENCE = MILES_LIMIT / 4;
 export const APP_URL = "";
 export const GOOGLE_URL = "https://maps.google.com/maps";
 export const GOOGLE_ADDRESS_URL =
-"http://maps.googleapis.com/maps/api/geocode/json?latlng=";
+  "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
 export const GOOGLE_API_KEY = "AIzaSyBY42wGL_XfHp-TmxJdK45z9qVrfilns68";
 export const GOOGLE_ADDRESS_URl_END = `&sensor=false&key=${GOOGLE_API_KEY}`;
 
@@ -160,5 +164,3 @@ export const TRACKER_LOCATION_TIME_OUT = 10000;
 export const TRACKER_LOCATION_MAX_AGE = 500;
 export const TRACKER_LOCATION_DISTANCE_FILTER = 0;
 export const TRACKER_LOCATION_HIGH_ACCURACY = true;
-
-

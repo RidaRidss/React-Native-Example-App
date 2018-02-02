@@ -2,16 +2,17 @@ import XMPP from "react-native-xmpp";
 const DOMAIN = "jabber.hot-chilli.net";
 const SCHEMA = "ios";
 import { observable } from "mobx";
-import { autobind } from "core-decorators";
-
-@autobind
-@observer
+// import { autobind } from "core-decorators";
+// import autobind from "autobind-decorator";
+import autobind from "autobind";
 class XmppService {
+  @autobind
+  @observable
   logged = false;
-  @observer loading = false;
-  @observer loginError = null;
-  @observer error = null;
-  @observer conversation = [];
+  @observable loading = false;
+  @observable loginError = null;
+  @observable error = null;
+  @observable conversation = [];
 
   constructor() {
     XMPP.on("loginError", this.onLoginError);

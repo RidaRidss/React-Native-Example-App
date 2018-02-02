@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-open-setting')
     compile project(':react-native-xmpp')
     compile project(':react-native-maps')
     compile project(':react-native-splash-screen')

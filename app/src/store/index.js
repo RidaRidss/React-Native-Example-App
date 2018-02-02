@@ -4,7 +4,7 @@
 
 import * as storage from "redux-storage";
 
-// ========IMPORTING CREATELOGGER TO CHECKS REDUX MIDDLEWARE DATA STORAGE STATE 'S LOGS IN DEBUGGING ===================
+// ========IMPORTING CREATE_LOGGER TO CHECKS REDUX MIDDLEWARE DATA STORAGE STATE 'S LOGS IN DEBUGGING ===================
 
 import { createLogger } from "redux-logger";
 
@@ -35,7 +35,7 @@ export default function configureStore(reducers, onComplete: Function) {
     createEngine("AppTree"),
     // ======= here data is white listing means caching ======== //
 
-    // note : if no need of any cache data usage when app starts we will not cache data and replace whitelisted-key to "blacklisted-key" 
+    // note : if no need of any cache data usage when app starts we will not cache data and replace whitelisted-key to "blacklisted-key"
 
     [
       "whitelisted-key",
@@ -50,14 +50,14 @@ export default function configureStore(reducers, onComplete: Function) {
 
   const storeMiddleware = storage.createMiddleware(engine);
 
- // ==========================================================================================================================
+  // ==========================================================================================================================
 
- // ======================================== SAGA MIDDLEWARE WILL CALL HERE =================================================
-   
+  // ======================================== SAGA MIDDLEWARE WILL CALL HERE =================================================
+
   const sagaMiddleware = createSagaMiddleware();
 
-// ====== creating store with Async Storage , saga middlewares and devtools for logs , debugging & more functionalities like hot reloading atc   
- 
+  // ====== creating store with Async Storage , saga middlewares and devtools for logs , debugging & more functionalities like hot reloading atc
+
   const store = createStore(
     storage.reducer(reducers),
     composeWithDevTools(
@@ -67,7 +67,6 @@ export default function configureStore(reducers, onComplete: Function) {
 
   // ===================================================================================================================
 
-
   // ======== on debugging state fetching store ================= //
 
   if (isDebuggingInChrome) {
@@ -76,7 +75,6 @@ export default function configureStore(reducers, onComplete: Function) {
 
   // ================= LOADING STORE , SAGA MIDDLEWARE WILL SERVE FIRST IN LOADING ===============================
 
-
   const load = storage.createLoader(engine);
   load(store)
     .then(onComplete)
@@ -84,7 +82,7 @@ export default function configureStore(reducers, onComplete: Function) {
       console.log("Failed to load previous state @ configureStore.js#44")
     );
 
-    // ====== saga middilewares , it will serve first in store
+  // ====== saga middilewares , it will serve first in store
 
   sagaMiddleware.run(sagas);
 

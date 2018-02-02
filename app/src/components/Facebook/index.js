@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { Image, Platform, Alert } from "react-native";
 import React, { Component } from "react";
 import { ButtonView, Text } from "../../components";
-// import { request } from "../../actions/UserActions";
+import { request } from "../../actions/UserActions";
 import { Actions } from "react-native-router-flux";
-import { API_ENTITY_AUTH_SOCIAL_LOGIN } from "../../config/WebService";
+import { API_USER_SOCIAL_LOGIN } from "../../config/WebService";
+import locationUtils from "../../util/locationUtils";
+
 import { Images, Metrics } from "../../theme";
 import {
   FACEBOOK_PERMISSIONS,
@@ -30,12 +32,14 @@ class Facebook extends Component {
       LoginManager.logInWithReadPermissions(FACEBOOK_PERMISSIONS).then(
         login => {
           if (!login.isCancelled) {
+            const { onFBLoggedIn, getNativeObject } = this.props;
             AccessToken.getCurrentAccessToken().then(data => {
               const responseCallback = (error, result) => {
                 if (error) {
                   //TODO: callback; false
                   console.log(error);
                 } else {
+                  alert("facebook");
                   const payload = {
                     latitude: Util.getLocation().latitude,
                     longitude: Util.getLocation().longitude,
@@ -53,7 +57,33 @@ class Facebook extends Component {
                     device_udid: Util.getUserId(),
                     mobile_json: 1
                   };
-                  // this.props.request(API_ENTITY_AUTH_SOCIAL_LOGIN, payload);
+                  // const payload = {
+                  //   latitude: locationUtils.getLocation().latitude,
+                  //   longitude: locationUtils.getLocation().longitude,
+                  //   name: result.name,
+                  //   email: result.email,
+                  //   platform_id: result.id,
+                  //   facebook_id: result.id,
+                  //   social_image:
+                  //     result.picture &&
+                  //     result.picture.data &&
+                  //     result.picture.data.url
+                  //       ? result.picture.data.url
+                  //       : "http://images.firstcovers.com/covers/i/its_easy_if_you_try-5332.jpg",
+                  //   platform_type: "facebook",
+                  //   device_type: Util.getPlatform(),
+                  //   facebook_link: "www.facebook.com/" + result.id,
+                  //   mobile_json: 1
+                  // };
+                  this.props.request(API_USER_SOCIAL_LOGIN, payload);
+                  Actions.Chat();
+                  // if (onFBLoggedIn) {
+                  //   if (getNativeObject) {
+                  //     onFBLoggedIn(result);
+                  //   } else {
+                  //     onFBLoggedIn(payload);
+                  //   }
+                  // }
                 }
               };
 
@@ -79,21 +109,23 @@ class Facebook extends Component {
   render() {
     return (
       <ButtonView
-      
-      publishPermissions={["publish_actions"]}
-      onLoginFinished={
-        (error, result) => {
+        publishPermissions={["publish_actions"]}
+        onLoginFinished={(error, result) => {
           if (error) {
             alert("Login failed with error: " + result.error);
           } else if (result.isCancelled) {
             alert("Login was cancelled");
           } else {
-            alert("Login was successful with permissions: " + result.grantedPermissions)
+            alert(
+              "Login was successful with permissions: " +
+                result.grantedPermissions
+            );
           }
-        }
-      }
-      onLogoutFinished={() => alert("User logged out")}
-      style={styles.container} onPress={this._onPress}>
+        }}
+        onLogoutFinished={() => alert("User logged out")}
+        style={styles.container}
+        onPress={this._onPress}
+      >
         <Image
           source={Images.facebook}
           style={{ marginLeft: Metrics.smallMargin }}
@@ -111,7 +143,6 @@ class Facebook extends Component {
         >
           Connect with Facebook
         </Text>
-        
       </ButtonView>
     );
   }
@@ -122,8 +153,7 @@ const mapStateToProps = state => ({
 });
 
 const actions = {
-  // request
+  request
 };
-
 
 export default connect(mapStateToProps, actions)(Facebook);

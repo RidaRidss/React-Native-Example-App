@@ -30,7 +30,7 @@ import * as Progress from "react-native-progress";
 import { View, StyleSheet, Platform, ActivityIndicator } from "react-native";
 import MapView from "react-native-maps";
 
-// =========================================================================
+// =======================================================================================
 
 // ============= import general custom settings support methods/components ============== //
 
@@ -191,11 +191,11 @@ class Detail extends Component {
         <View style={styles.buttonView}>
           <ButtonView
             style={styles.button}
-            onPress={() => {
-              // ================== xmpp code here =========================
-              // XmppService.connect();
-              // ===========================================================
-            }}
+            onPress={() => Actions.Chat()
+            // ================== xmpp code here =========================
+            // XmppService.connect();
+            // ===========================================================
+            }
           >
             <Text color="secondary" type="book" size="large">
               Let's Chat

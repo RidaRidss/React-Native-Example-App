@@ -1,27 +1,24 @@
-import Util from "../../util";
+// @flow
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  View,
-  Platform
-} from "react-native";
+import { TouchableOpacity, TouchableNativeFeedback, View } from "react-native";
+import Util from "../../util";
 
 let disableClick = false;
 
-const debounceTime = Platform.select({
-  ios: 200,
-  android: 900
-});
-export default class ButtonView extends React.Component {
+export default class ButtonView extends React.PureComponent {
   static propTypes = {
-    onPress: PropTypes.func.isRequired,
-    children: PropTypes.oneOfType([
-      PropTypes.object,
+    style: PropTypes.oneOfType([
       PropTypes.array,
-      PropTypes.element
-    ]).isRequired
+      PropTypes.object,
+      PropTypes.number
+    ]),
+    children: PropTypes.node.isRequired
+  };
+
+  static defaultProps = {
+    style: {},
+    disableClick: false
   };
 
   _onPress = () => {
@@ -33,23 +30,23 @@ export default class ButtonView extends React.Component {
 
       setTimeout(() => {
         disableClick = false;
-      }, debounceTime);
+      }, 500);
     }
   };
+
   render() {
-    const { onPress, ...rest } = this.props;
+    const { style, children, ...rest } = this.props;
+
     if (Util.isPlatformAndroid()) {
       return (
-        <TouchableNativeFeedback
-          onPress={this._onPress}
-          // background={TouchableNativeFeedback.Ripple("#E0E0E0", true)}
-        >
-          <View {...rest}>{this.props.children}</View>
+        <TouchableNativeFeedback {...rest} onPress={this._onPress}>
+          <View style={style}>{this.props.children}</View>
         </TouchableNativeFeedback>
       );
     }
+
     return (
-      <TouchableOpacity onPress={this._onPress} {...rest}>
+      <TouchableOpacity style={style} {...rest} onPress={this._onPress}>
         {this.props.children}
       </TouchableOpacity>
     );

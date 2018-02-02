@@ -5,10 +5,10 @@ import { Metrics, Colors } from "../../theme";
 export default StyleSheet.create({
   container: {
     flexDirection: "row",
-    elevation: 2,
+    elevation: 0.8,
     alignItems: "center",
-    padding: Metrics.ratio * 12,
-    backgroundColor: Colors.facebook,
+    padding: Metrics.ratio * 18,
+    // backgroundColor: Colors.facebook,
     borderRadius: Metrics.borderRadius
   }
 });

@@ -4,7 +4,8 @@ import Text from "./Text";
 import Button from "./Button";
 import Spacer from "./Spacer";
 import ButtonView from "./ButtonView";
-// // import Facebook from "./Facebook";
+import Facebook from "./Facebook";
+import { GiftedChat } from "./GiftedChat";
 // import LocationButton from "./LocationButton";
 // import FlatList from "./FlatList";
 // import Hoshi from "./Input/MyInput";
@@ -52,7 +53,9 @@ export {
   Text,
   ButtonView,
   Button,
-  Spacer
+  Spacer,
+  Facebook,
+  GiftedChat
   // ButtonGradient,
   // CardView,
   // OR,
@@ -71,7 +74,6 @@ export {
   // ActivityIndicator,
   // ActionSheet,
   // Loading,
-  // // Facebook,
   // FlatList,
   // Hoshi,
   // ListItem,
