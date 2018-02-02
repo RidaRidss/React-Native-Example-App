@@ -9,6 +9,7 @@
 #### BASE_URL ,
 #### API_USER_NAME ,
 #### API_PASSWORD in config/WebServices 
+#### add chat token id & i.p address & port in services/SOCKETIO/constants.js
 #### place FacebookSDK folder at system path "~/Documents/"
 #### get FacebookAppID,FacebookDisplayName by facebook steps from "https://developers.facebook.com/docs/facebook-login" for ios & replace below code in ios/app.xcodeproj/app/Info.plist file
 
