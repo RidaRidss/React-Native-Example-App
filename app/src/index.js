@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Provider } from "react-redux";
 import {
   AppRegistry,
@@ -23,6 +23,7 @@ import SplashScreen from "react-native-splash-screen";
 import NetworkInfo from "./services/NetworkInfo";
 import { networkInfoListener } from "./actions/NetworkInfoActions";
 import LocationServices from "./services/LocationService";
+
 import { request, success, failure } from "./actions/UserLocationActions";
 
 const reducers = require("./reducers").default;
@@ -33,7 +34,6 @@ import AppNavigator from "./navigator";
 
 // import KeyboardManager from 'react-native-keyboard-manager'
 
-
 import { MessageBar } from "./components";
 
 import Utils from "./util";
@@ -41,7 +41,6 @@ import Utils from "./util";
 applyConfigSettings();
 
 class App extends Component {
-
   state = {
     isLoading: true,
     store: configureStore(reducers, () => {
@@ -52,13 +51,13 @@ class App extends Component {
     })
   };
   // constructor() {
-  //   super(); 
+  //   super();
 
   //   // ===== uncoment constructor of code if keyboard toolbar is not working in ios from config code , import first on top
 
   //   // KeyboardManager.setEnable(true);
   //   // KeyboardManager.setToolbarPreviousNextButtonEnable(true);
- 
+
   //   // =========================================================
   // }
 
@@ -124,7 +123,7 @@ class App extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return null ;
+      return null;
     }
 
     return (
@@ -133,10 +132,9 @@ class App extends Component {
           <AppNavigator />
         </Provider>
         <MessageBar />
-        </View>
+      </View>
     );
   }
 }
 
 AppRegistry.registerComponent("app", () => App);
-

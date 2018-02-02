@@ -3,7 +3,7 @@
 // ============== import redux libraries to connect redux =============== //
 
 import { connect } from "react-redux";
-import React, { Component } from "react";
+import React, { Component, NativeAppEventEmitter, NativeModules } from "react";
 
 // ==== import 'lodash' library to explore response values from api ===== //
 
@@ -17,7 +17,6 @@ import PropTypes from "prop-types";
 
 // =========================================================================
 
-
 // ============ import actions support library ============================= //
 
 import { Actions } from "react-native-router-flux";
@@ -27,19 +26,18 @@ import { Actions } from "react-native-router-flux";
 // ============ import ui support libraries ============================= //
 
 import ImageResizer from "react-native-image-resizer";
-import * as Progress from 'react-native-progress';
-import { View, StyleSheet , Platform, ActivityIndicator} from "react-native";
-import MapView from 'react-native-maps';
+import * as Progress from "react-native-progress";
+import { View, StyleSheet, Platform, ActivityIndicator } from "react-native";
+import MapView from "react-native-maps";
 
 // =========================================================================
-
 
 // ============= import general custom settings support methods/components ============== //
 
 import Util from "../../util";
 import reuseableFunctions from "../../reusableFunction/reuseableFunction";
-import {Fonts , Metrics , Colors, Images} from "../../theme"
-import {Text, Button, Spacer , ButtonView} from "../../components"
+import { Fonts, Metrics, Colors, Images } from "../../theme";
+import { Text, Button, Spacer, ButtonView } from "../../components";
 import {
   RADIUS_DISTANCE,
   LATITUDE_DELTA,
@@ -66,9 +64,13 @@ import { API_USER_EDIT } from "../../config/WebService";
 
 // ==========================================================================
 
-class Detail extends Component {
+// =============== importing xmpp for chat integration ======================
 
-   // ========== getting request props as required =============================
+// import XMPP from "react-native-xmpp";
+// import XmppService from "../../services/XmppService";
+
+class Detail extends Component {
+  // ========== getting request props as required =============================
 
   static propTypes = {
     userLocation: PropTypes.object.isRequired,
@@ -77,45 +79,44 @@ class Detail extends Component {
     userEditRequest: PropTypes.func.isRequired,
     attachmentFile: PropTypes.object.isRequired
   };
-  
-// ==================================================================================
 
-// ===== Defining state params initially in constructor b/c it will serve first =====
+  // ==================================================================================
+
+  // ===== Defining state params initially in constructor b/c it will serve first =====
 
   constructor(props) {
     super(props);
 
     const data = props.user.data;
 
-      this.state = {
-        name: "",
-        email: "",
-        password: "",
-        errors: {},
-        initialRegion: {},
-        moveToUserLocation: true,
-        // image: this._getGallery(data),
-        // imageChanged: false
-        // dob: undefined,
-        // gender: undefined,
-        // selectedGender: this._getGender(data),
-        // genderChangedByUser: false,
-        // currentDate: Util.getCurrentDayDate(),
-        secureTextEntry: true,
-      };
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      errors: {},
+      initialRegion: {},
+      moveToUserLocation: true,
+      // image: this._getGallery(data),
+      // imageChanged: false
+      // dob: undefined,
+      // gender: undefined,
+      // selectedGender: this._getGender(data),
+      // genderChangedByUser: false,
+      // currentDate: Util.getCurrentDayDate(),
+      secureTextEntry: true
+    };
   }
 
   email;
   password;
 
-
-// ============= getting user data from api =============== //
+  // ============= getting user data from api =============== //
 
   _user() {
     return this.props.user.data;
-  } 
+  }
 
-// ============= submit edit user request form =============== //
+  // ============= submit edit user request form =============== //
 
   // _onSubmitForm = () => {
   //   const data = this.props.data;
@@ -161,46 +162,56 @@ class Detail extends Component {
   }
 
   render() {
-
-  // ===================== checking empty user data =========================== //
+    // ===================== checking empty user data =========================== //
 
     if (_.isEmpty(this._user())) {
       return null;
     }
 
-  // ================================================================= //  
+    // ================================================================= //
 
-  // ===================== user data params =========================== //
+    // ===================== user data params =========================== //
 
     const { auth, attributes, gallery } = this._user();
     const { name, entity_auth_id } = auth;
-    // ================================================================= //  
-    
+    // ================================================================= //
+
     const { email, password, errors, secureTextEntry, image } = this.state;
     return (
       <View style={styles.container}>
-      <View style={styles.fieldView}>
-      <Text size="xxLarge" color="primary" type="black">Profile</Text>
-      <Text size="xxLarge" color="primary" type="black">{name}</Text>
+        <View style={styles.fieldView}>
+          <Text size="xxLarge" color="primary" type="black">
+            User
+          </Text>
+          <Text size="xxLarge" color="primary" type="black">
+            {name}
+          </Text>
+        </View>
+
+        <View style={styles.buttonView}>
+          <ButtonView
+            style={styles.button}
+            onPress={() => {
+              // ================== xmpp code here =========================
+              // XmppService.connect();
+              // ===========================================================
+            }}
+          >
+            <Text color="secondary" type="book" size="large">
+              Let's Chat
+            </Text>
+            {this._renderActivityIndicator()}
+          </ButtonView>
+        </View>
+        <View style={styles.progressView}>
+          <Progress.Bar color={Colors.tertiary} progress={0.8} width={200} />
+        </View>
+        <Spacer />
       </View>
-          
-      <View style={styles.buttonView}>
-      <ButtonView style={styles.button} onPress={()=>null}>
-      <Text color="secondary" type="book" size="large">Next</Text>
-      {this._renderActivityIndicator()}
-      </ButtonView>
-      </View>
-      <View style={styles.progressView}>
-      <Progress.Bar color={Colors.tertiary} progress={0.8} width={200} />
-      </View>
-      <Spacer />
-      </View>
-      
     );
   }
 
-
-// =================== edit user info request payload =============== //
+  // =================== edit user info request payload =============== //
 
   // _getUpdatePayload = () => {
   //   const {
@@ -218,8 +229,7 @@ class Detail extends Component {
   //   return payload;
   // };
 
-  // ================================================================= //  
-  
+  // ================================================================= //
 
   // ================= geting field values ===================== //
 
@@ -257,7 +267,6 @@ class Detail extends Component {
   //   return undefined;
   // };
 
-
   // ================================================================= //
 
   // ======================== validating fields ====================== //
@@ -276,35 +285,28 @@ class Detail extends Component {
   //   }
   // };
 
-  // ================================================================= //  
-
+  // ================================================================= //
 }
 
-
-
 const mapStateToProps = state => ({
-
   // ============= maping user & userLocation no  need to import its reducer , this will map by reducer , & also mapping attachment file from reducer ============= //
 
   user: state.user,
   attachmentFile: state.attachmentFile,
-  userLocation:state.userLocation
+  userLocation: state.userLocation
 
-// ================================================================= //  
-
+  // ================================================================= //
 });
 
-const actions = { 
-
-// ============= registering image upload & user edit request actions  ============= //
+const actions = {
+  // ============= registering image upload & user edit request actions  ============= //
   imageUploadRequest,
   userEditRequest
 };
 
-// ================================================================= //  
+// ================================================================= //
 
 export default connect(mapStateToProps, actions)(Detail);
-
 
 // <MapView
 //   style={styles.map}

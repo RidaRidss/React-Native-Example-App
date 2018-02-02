@@ -3,13 +3,11 @@ export const API_USER_NAME = "apiuser";
 export const API_PASSWORD = "apipass123";
 export const API_TIMEOUT = 30000;
 
-
 // API ROUTE VARAIABLE
 export const API = "/api/";
 
 // GET API LOGS BY CHANGE API LOG_VALUE "TRUE"
 export const API_LOG = true;
-
 
 // USER API ROUTES
 export const API_SIGN_UP = `${API}entity_auth`;
@@ -21,7 +19,6 @@ export const API_CHANGE_PASSWORD = `${API}entity_auth/change_password`;
 
 // UPLOAD FILE ROUTE
 export const API_ENTITY_ATTACHMENT_FILE = `${API}system/attachment/save`;
-
 
 // REQUEST FAIL ERRORS
 
@@ -56,4 +53,3 @@ export const ERROR_CLIENT = {
   title: "Whoops",
   message: "Looks like we did something went wrong."
 };
-

@@ -1437,6 +1437,10 @@ cookie@0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.1.3.tgz#e734a5c1417fce472d5aef82c381cabb64d1a435"
 
+core-decorators@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/core-decorators/-/core-decorators-0.20.0.tgz#605896624053af8c28efbe735c25a301a61c65c5"
+
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -4790,6 +4794,10 @@ react-native-vector-icons@^4.2.0:
     lodash "^4.0.0"
     prop-types "^15.5.10"
     yargs "^8.0.2"
+
+react-native-xmpp@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-xmpp/-/react-native-xmpp-0.6.0.tgz#0bd816834b9ad4e63a3ff3d1e4797b38d3ce786a"
 
 react-native@0.52.1:
   version "0.52.1"
