@@ -18,6 +18,7 @@ function* watchRequest() {
       const response = yield call(callPostRequest, url, payload);
 
       yield put(success(response && response.data ? response.data : []));
+      console.log("chat list data :", response.data);
     } catch (err) {
       yield put(failure(err && err.message));
     }

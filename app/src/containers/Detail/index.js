@@ -32,7 +32,8 @@ import {
   StyleSheet,
   Platform,
   ActivityIndicator,
-  Alert
+  Alert,
+  Image
 } from "react-native";
 import MapView from "react-native-maps";
 import { LoginManager, FBLoginManager } from "react-native-fbsdk";
@@ -200,31 +201,64 @@ class Detail extends Component {
 
     const { auth, attributes, gallery } = this._user();
     const { name, entity_auth_id } = auth;
+    const profileImage =
+      this._user().gallery && this._user().gallery.length
+        ? this._user().gallery[0].file
+        : "";
+    const title =
+      this._user().gallery && this._user().gallery.length
+        ? this._user().gallery[0].title
+        : "no image found";
+    const login_detail =
+      this._user().auth.last_login_at == null
+        ? "this is time you have logged in"
+        : "Last Login at " + this._user().auth.last_login_at;
     // ================================================================= //
 
     const { email, password, errors, secureTextEntry, image } = this.state;
     return (
       <View style={styles.container}>
-        <View style={styles.fieldView}>
-          <Text size="xxLarge" color="primary" type="black">
-            User
-          </Text>
-          <Text size="xxLarge" color="primary" type="black">
-            {name}
-          </Text>
+        <View style={styles.fieldContainerView}>
+          <View style={styles.emptyView} />
+          <View style={styles.fieldView}>
+            <View style={styles.profileArea}>
+              <Text size="xxLarge" color="primary" type="black">
+                Profile
+              </Text>
+              <Text size="xxLarge" color="primary" type="black">
+                {name}
+              </Text>
+              <Text size="small" color="tertiary" type="black">
+                {login_detail}
+              </Text>
+              <Text size="small" color="tertiary" type="black">
+                Email Address : {this._user().auth.email}
+              </Text>
+            </View>
+            <View style={styles.profilePicArea}>
+              <Image
+                style={styles.profilePicStyle}
+                source={{ uri: profileImage }}
+              />
+              <Text size="small" color="tertiary" type="black">
+                {title}
+              </Text>
+            </View>
+          </View>
         </View>
 
         <View style={styles.buttonView}>
           <ButtonView
             style={styles.button}
             onPress={() => Actions.Chat()
+
             // ================== xmpp code here =========================
             // XmppService.connect();
             // ===========================================================
             }
           >
             <Text color="secondary" type="book" size="large">
-              Let's Chat
+              Join Our Chat Room
             </Text>
             {this._renderActivityIndicator()}
           </ButtonView>

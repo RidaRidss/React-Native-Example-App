@@ -116,7 +116,8 @@ class Chat extends Component {
       roomId: "room005",
       userId,
       userName,
-      userAvatar: ""
+      userAvatar:
+        user.gallery && user.gallery.length ? user.gallery[0].file : ""
     };
   }
 

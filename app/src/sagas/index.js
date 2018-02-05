@@ -9,7 +9,7 @@ import editUser from "./editUser";
 import forgotPassword from "./forgotPassword";
 import changePassword from "./changePassword";
 import attachmentFile from "./attachmentFile";
-//import chatList from "./chatList";
+import chatList from "./chatList";
 import chatHistory from "./chatHistory";
 
 export default function* root() {
@@ -21,6 +21,6 @@ export default function* root() {
   yield fork(forgotPassword);
   yield fork(changePassword);
   yield fork(attachmentFile);
- // yield fork(chatList);
+  yield fork(chatList);
   yield fork(chatHistory);
 }

@@ -11,8 +11,32 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#F5FCFF"
   },
+  fieldContainerView: {
+    flex: 8,
+    flexDirection: "column"
+  },
+  emptyView: {
+    flex: 1,
+    flexDirection: "row"
+  },
   fieldView: {
-    flex: 8
+    flex: 8,
+    flexDirection: "row"
+  },
+  profilePicArea: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flex: 2
+  },
+  profilePicStyle: {
+    width: Metrics.image.large,
+    height: Metrics.image.large
+  },
+  profileArea: {
+    flexDirection: "column",
+    flex: 8,
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
   },
   buttonView: {
     flex: 2,

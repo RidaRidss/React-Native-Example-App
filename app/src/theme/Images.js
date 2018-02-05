@@ -5,6 +5,8 @@ const home = require("../assets/images/home.png");
 const navigateBlack = require("../assets/images/navigateBlack.png");
 const security = require("../assets/images/pass.png");
 const facebook = require("../assets/images/facebook.png");
+const commentSendBtn = require("../assets/images/commentSendBtn.png");
+const profileplaceholder = require("../assets/images/profileplaceholder.png");
 
 // No Need To Define Gifs , use in particular file by gif's existing path
 // const noInternet = require("../assets/gifs/LoopNoInternet.gif");
@@ -13,6 +15,8 @@ export default {
   navigateBlack,
   security,
   facebook,
+  commentSendBtn,
+  profileplaceholder,
   tabActiveIcons: [home_active],
   tabInactiveIcons: [home]
 };
