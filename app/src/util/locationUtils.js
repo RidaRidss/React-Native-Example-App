@@ -65,7 +65,7 @@ class LocationUtils {
     if (!Util.isPlatformAndroid()) {
       Alert.alert(
         "Alert",
-        "AutoConnect requires current location, please enable location to continue",
+        "App requires current location, please enable location to continue",
         [
           { text: "OK" },
           {

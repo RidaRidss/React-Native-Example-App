@@ -23,12 +23,19 @@ import { Actions } from "react-native-router-flux";
 
 // =========================================================================
 
-// ============ import ui support libraries ============================= //
+// ============ import support libraries ============================= //
 
 import ImageResizer from "react-native-image-resizer";
 import * as Progress from "react-native-progress";
-import { View, StyleSheet, Platform, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Platform,
+  ActivityIndicator,
+  Alert
+} from "react-native";
 import MapView from "react-native-maps";
+import { LoginManager, FBLoginManager } from "react-native-fbsdk";
 
 // =======================================================================================
 
@@ -51,10 +58,11 @@ import styles from "./styles";
 
 // =======================================================================================
 
-// =============== import user edit request action ======================== //
+// =============== import user edit , image upload & logout request action ======================== //
 
 import { request as imageUploadRequest } from "../../actions/AttachmentFile";
 import { request as userEditRequest } from "../../actions/UserEdit";
+import { logout } from "../../actions/User";
 
 // ==========================================================================
 
@@ -161,6 +169,24 @@ class Detail extends Component {
     return null;
   }
 
+  onLogout() {
+    Alert.alert("Alert", "Are you sure you want to log out", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          this.props.logout();
+          LoginManager.logOut();
+          Actions.login({ type: "reset" });
+        }
+      }
+    ]);
+  }
+
   render() {
     // ===================== checking empty user data =========================== //
 
@@ -202,9 +228,22 @@ class Detail extends Component {
             </Text>
             {this._renderActivityIndicator()}
           </ButtonView>
+          <ButtonView
+            style={[styles.button, styles.button2]}
+            onPress={() => this.onLogout()
+            // ================== xmpp code here =========================
+            // XmppService.connect();
+            // ===========================================================
+            }
+          >
+            <Text color="secondary" type="book" size="large">
+              Logout
+            </Text>
+            {this._renderActivityIndicator()}
+          </ButtonView>
         </View>
         <View style={styles.progressView}>
-          <Progress.Bar color={Colors.tertiary} progress={0.8} width={200} />
+          <Progress.Bar color={Colors.tertiary} progress={0.9} width={200} />
         </View>
         <Spacer />
       </View>
@@ -299,9 +338,10 @@ const mapStateToProps = state => ({
 });
 
 const actions = {
-  // ============= registering image upload & user edit request actions  ============= //
+  // ============= registering image upload & user edit, user logout request actions  ============= //
   imageUploadRequest,
-  userEditRequest
+  userEditRequest,
+  logout
 };
 
 // ================================================================= //

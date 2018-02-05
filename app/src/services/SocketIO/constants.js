@@ -1,5 +1,5 @@
-export const BASE_URL = "chat server ip";
-export const APP_TOKEN = "chat_token";
+export const BASE_URL = "chat server ip address";
+export const APP_TOKEN = "app chat token";
 export const PORT = 3333;
 
 export const NAME_SPACE = "chat";

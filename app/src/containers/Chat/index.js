@@ -11,8 +11,8 @@ import {
   CHAT_API_GET_MESSAGES
 } from "../../services/SocketIO/constants";
 
-// import { GiftedChat } from "../../components";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat } from "../../components";
+// import { GiftedChat } from "react-native-gifted-chat";
 import { request, clearHistory } from "../../actions/ChatHistoryActions";
 
 console.ignoredYellowBox = ["Setting a timer"];
@@ -53,12 +53,14 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.chatHistory, this.props.chatHistory)) {
+      //console.log("chat history 22", nextProps.chatHistory.data);
       this._updateMessageList(nextProps.chatHistory.data);
     }
   }
 
   componentWillUnmount() {
     this._leaveRoomAndLeaveSocket();
+    //this.props.clearHistory();
   }
 
   _updateMessageList = chatHistory => {
@@ -103,6 +105,7 @@ class Chat extends Component {
 
   _configureChatRoom() {
     const { user } = this.props;
+    console.log("hello user", user);
     const userName =
       user.attributes && user.attributes.name ? user.attributes.name : "";
     const userId = user.entity_auth_id;
@@ -324,7 +327,7 @@ class Chat extends Component {
 
   render() {
     const { isConnecting, isConnected } = this.state;
-
+    const { user, chatHistory } = this.props;
     return (
       <View style={styles.container}>
         {isConnected && this._renderConnected()}

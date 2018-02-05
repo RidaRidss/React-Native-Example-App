@@ -5,18 +5,18 @@ import Utils from "../../util";
 
 export default StyleSheet.create({
   container: {
-    flex:1,
-    justifyContent: 'center',
-    paddingHorizontal : Metrics.baseMargin,
-    justifyContent:"space-between",
-    backgroundColor: '#F5FCFF',
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: Metrics.baseMargin,
+    justifyContent: "space-between",
+    backgroundColor: "#F5FCFF"
   },
-  fieldView:{
-  flex :8,
+  fieldView: {
+    flex: 8
   },
-  buttonView:{
-    flex:2,
-    justifyContent:"flex-end"
+  buttonView: {
+    flex: 2,
+    justifyContent: "flex-end"
   },
   button: {
     padding: Metrics.smallMargin * 1.3,
@@ -25,9 +25,12 @@ export default StyleSheet.create({
     marginBottom: Metrics.baseMargin,
     backgroundColor: Colors.tertiary
   },
-  progressView:{
-    flex:4,
-    justifyContent:"flex-end",
-    alignItems:"center" 
+  button2: {
+    backgroundColor: Colors.secondary
+  },
+  progressView: {
+    flex: 4,
+    justifyContent: "flex-end",
+    alignItems: "center"
   }
 });

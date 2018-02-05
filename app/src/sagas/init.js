@@ -9,8 +9,7 @@ function* watchReduxLoadFromDisk() {
   while (true) {
     yield take(LOAD);
     try {
-
-   // ============ getting user detail first when app starts , if user data exists , we will be on detail page ====================
+      // ============ getting user detail first when app starts , if user data exists , we will be on detail page ====================
 
       const { data } = yield select(getUser);
       if (data.entity_auth_id) {

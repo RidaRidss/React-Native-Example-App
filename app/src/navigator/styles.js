@@ -11,7 +11,7 @@ export default StyleSheet.create({
     elevation: 0
   },
   title: {
-    color: Colors.tertiary,
+    color: "black",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
