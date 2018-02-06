@@ -1,4 +1,4 @@
-export const BASE_URL = "service_domain/staging/app_name";
+export const BASE_URL = "api url";
 export const API_USER_NAME = "apiuser";
 export const API_PASSWORD = "apipass123";
 export const API_TIMEOUT = 30000;

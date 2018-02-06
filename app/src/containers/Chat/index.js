@@ -320,7 +320,7 @@ class Chat extends Component {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text onPress={() => this._connectSocketAndJoinRoom()}>
-          Show Connect Button
+          Connect with chat Room
         </Text>
       </View>
     );

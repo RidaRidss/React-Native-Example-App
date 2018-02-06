@@ -9,7 +9,7 @@ import {
   ActionConst
 } from "react-native-router-flux";
 import { Text } from "react-native";
-import { Signup, Login, Detail, Chat } from "../containers";
+import { Signup, Login, Detail, Chat, Inbox } from "../containers";
 import styles from "./styles";
 
 const navigator = Actions.create(
@@ -34,7 +34,8 @@ const navigator = Actions.create(
       key="detail"
       component={Detail}
     />
-    <Scene title="Chat" key="Chat" component={Chat} />
+    <Scene title="Chat" key="Chat" component={Chat} hideTabBar />
+    <Scene key="inbox" component={Inbox} title="Inbox" back hideTabBar />
   </Stack>
 );
 

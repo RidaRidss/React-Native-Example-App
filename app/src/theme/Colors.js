@@ -9,11 +9,18 @@ const grey = Platform.select({
   android: "#FAFAFA"
 });
 const transparent = "rgba(0,0,0,0)";
-
+const themeColors = {
+  hilite: "#3ad1ce",
+  btnHilite: "#edf4ff",
+  border: "#b9b9b9",
+  borderLite: "#eef1f7",
+  hrLine: "#E9E8E8",
+  linkText: "#3380cb"
+};
 const primary = white;
 const secondary = "#00a799";
 const tertiary = "#ff7e7e";
-const quaternary = "#55acee";
+const quaternary = "rgb(152, 197, 190)";
 const disabled = "rgba(229, 229, 229, 1)";
 
 const background = {
@@ -112,5 +119,4 @@ export default {
   shadow,
 
   tabInactive: "#a3aab4"
-
 };

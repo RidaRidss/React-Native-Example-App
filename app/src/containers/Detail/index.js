@@ -264,11 +264,16 @@ class Detail extends Component {
           </ButtonView>
           <ButtonView
             style={[styles.button, styles.button2]}
-            onPress={() => this.onLogout()
-            // ================== xmpp code here =========================
-            // XmppService.connect();
-            // ===========================================================
-            }
+            onPress={() => Actions.inbox()}
+          >
+            <Text color="secondary" type="book" size="large">
+              Check your inbox
+            </Text>
+            {this._renderActivityIndicator()}
+          </ButtonView>
+          <ButtonView
+            style={[styles.button, styles.button3]}
+            onPress={() => this.onLogout()}
           >
             <Text color="secondary" type="book" size="large">
               Logout

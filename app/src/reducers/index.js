@@ -8,6 +8,7 @@ import forgotPassword from "./forgotPassword";
 import changePassword from "./changePassword";
 import attachmentFile from "./attachmentFile";
 import chatHistory from "./chatHistory";
+import chatList from "./chatList";
 
 export default combineReducers({
   route: navigator,
@@ -17,5 +18,6 @@ export default combineReducers({
   forgotPassword,
   changePassword,
   attachmentFile,
-  chatHistory
+  chatHistory,
+  chatList
 });

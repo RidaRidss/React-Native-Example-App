@@ -20,7 +20,7 @@ export default StyleSheet.create({
     flexDirection: "row"
   },
   fieldView: {
-    flex: 8,
+    flex: 5,
     flexDirection: "row"
   },
   profilePicArea: {
@@ -39,7 +39,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
   buttonView: {
-    flex: 2,
+    flex: 3,
     justifyContent: "flex-end"
   },
   button: {
@@ -50,10 +50,13 @@ export default StyleSheet.create({
     backgroundColor: Colors.tertiary
   },
   button2: {
+    backgroundColor: Colors.quaternary
+  },
+  button3: {
     backgroundColor: Colors.secondary
   },
   progressView: {
-    flex: 4,
+    flex: 2,
     justifyContent: "flex-end",
     alignItems: "center"
   }

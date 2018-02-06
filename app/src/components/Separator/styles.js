@@ -4,7 +4,7 @@ import { Metrics, Colors } from "../../theme";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "#e5e5e5",
-    height: 1
+    backgroundColor: Colors.separator,
+    height: Metrics.horizontalLineHeight
   }
 });

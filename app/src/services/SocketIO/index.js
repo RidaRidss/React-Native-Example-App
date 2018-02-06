@@ -22,11 +22,13 @@ class SocketIO {
 
     console.log("connect socket.io");
 
+    // alert("connected to socket.io server");
     if (!isConnectedWithSocket) {
       // Global events are bound against socket
 
       this.socket.on("connect_error", function() {
         console.log("connect_error");
+        // alert("socket.io server connection failed");
       });
 
       this.socket.on("connect", () => {

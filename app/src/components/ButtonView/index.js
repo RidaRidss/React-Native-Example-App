@@ -1,10 +1,20 @@
 // @flow
 import React from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity, TouchableNativeFeedback, View } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  View,
+  Platform
+} from "react-native";
 import Util from "../../util";
 
 let disableClick = false;
+
+const debounceTime = Platform.select({
+  ios: 200,
+  android: 900
+});
 
 export default class ButtonView extends React.PureComponent {
   static propTypes = {
@@ -17,8 +27,7 @@ export default class ButtonView extends React.PureComponent {
   };
 
   static defaultProps = {
-    style: {},
-    disableClick: false
+    style: {}
   };
 
   _onPress = () => {
@@ -30,7 +39,7 @@ export default class ButtonView extends React.PureComponent {
 
       setTimeout(() => {
         disableClick = false;
-      }, 500);
+      }, debounceTime);
     }
   };
 

@@ -1,12 +1,11 @@
 // @flow
-
-import Util from "../../util";
 import React from "react";
 import PropTypes from "prop-types";
-import { Separator } from "../../components";
 import { FlatList as FlatListRN } from "react-native";
+import Util from "../../util";
+import { Separator } from "../";
 
-export default class FlatList extends React.Component {
+export default class FlatList extends React.PureComponent {
   static propTypes = {
     data: PropTypes.array.isRequired,
     renderItem: PropTypes.func.isRequired,

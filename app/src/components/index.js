@@ -6,13 +6,16 @@ import Spacer from "./Spacer";
 import ButtonView from "./ButtonView";
 import Facebook from "./Facebook";
 import { GiftedChat } from "./GiftedChat";
+import { Image } from "./Image";
+import FlatList from "./FlatList";
+import Separator from "./Separator";
+import ImageButton from "./ImageButton";
+
 // import LocationButton from "./LocationButton";
-// import FlatList from "./FlatList";
 // import Hoshi from "./Input/MyInput";
 // import ListItem from "./ListItem";
 // import Map from "./Map";
 // import ScreenList from "./ScreenList";
-// import Separator from "./Separator";
 // import Swiper from "./Swiper";
 // import TabIcon from "./TabIcon";
 // import TabBar from "./TabBar";
@@ -55,7 +58,11 @@ export {
   Button,
   Spacer,
   Facebook,
-  GiftedChat
+  FlatList,
+  GiftedChat,
+  Image,
+  Separator,
+  ImageButton
   // ButtonGradient,
   // CardView,
   // OR,
@@ -74,12 +81,10 @@ export {
   // ActivityIndicator,
   // ActionSheet,
   // Loading,
-  // FlatList,
   // Hoshi,
   // ListItem,
   // Map,
   // ScreenList,
-  // Separator,
   // Swiper,
   // TabIcon,
   // WebView,

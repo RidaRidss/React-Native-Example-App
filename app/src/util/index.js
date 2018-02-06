@@ -29,7 +29,6 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 class Util {
-
   isEmpty = value => _.isEmpty(value);
 
   keyExtractor = (item: Object, index: number) => index;
@@ -48,7 +47,6 @@ class Util {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
- 
 
   isEmailValid(email: string) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -105,19 +103,18 @@ class Util {
     const dLon = deg2rad(lon2 - lon1);
 
     const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(deg2rad(lat1)) *
-    Math.cos(deg2rad(lat2)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
-    
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    
+
     const d = Math.round(R * c);
-    
+
     return d;
   }
-
 
   convertKm2Miles(km: number) {
     return _.isNumber(km) ? km * 0.621371 : NaN;
@@ -125,7 +122,7 @@ class Util {
   distanceUnit(distance: number) {
     return `${distance} KM`;
   }
-  
+
   // function to show message bar.
   showAlert = (title, message) => {
     MessageBarManager.showAlert({
@@ -168,7 +165,6 @@ class Util {
   getGoogleAddress(latitude, longitude) {
     return `${GOOGLE_ADDRESS_URL},${latitude},${longitude},${GOOGLE_ADDRESS_URl_END}`;
   }
-
 
   getAddress() {
     // const url = ${GOOGLE_ADDRESS_URL},${latitude},${longitude},${GOOGLE_ADDRESS_URl_END}`
@@ -276,43 +272,23 @@ class Util {
     return moment(Date.now()).format(DAY_DATE_FORMAT);
   }
 
-  
-  
   getUserProfile(fbId) {
     return `http://graph.facebook.com/${fbId}/picture?type=large`;
   }
-  
+
   getDateOfBirthFromNow() {
     return moment(Date.now()).add(-15, "years");
   }
-  
+
   // getDateFrom(givenDate) {
   //   return moment(givenDate)
   //     .add(TIME_ZONE, "hours")
   //     .fromNow();
   // }
 
-
-  getDateFrom(givenDate) {
-    // moment.locale("en", {
-    //   relativeTime: {
-    //     future: "in %s",
-    //     past: "%s ",
-    //     s: "s",
-    //     m: "m",
-    //     mm: "%d m",
-    //     h: "h",
-    //     hh: "%d h",
-    //     d: "d",
-    //     dd: "%d d",
-    //     M: "a mth",
-    //     MM: "%d mths",
-    //     y: "y",
-    //     yy: "%d y"
-    //   }
-    // });
+  getDateFrom(givenDate: string) {
     return moment(givenDate)
-      .add(TIME_ZONE, "h")
+      .add(TIME_ZONE, "hours")
       .fromNow();
   }
 
@@ -327,7 +303,6 @@ class Util {
   isDatePast(date) {
     return moment(date).format(DAY_DATE_FORMAT) < this.getCurrentDate();
   }
-  
 
   getDate(givenDate) {
     return moment(givenDate).format(DATE_FORMAT_DAY);
@@ -340,7 +315,7 @@ class Util {
         // this.birthDate.focus();
       }, 500);
     }
-  } 
+  }
   getGoogleUrl(latitude, longitude) {
     return `${GOOGLE_URL},
     /?daddr=${latitude},${longitude}`;
@@ -390,7 +365,6 @@ class Util {
   //   //     console.error(error);
   //   //   });
   // }
-
 }
 
 export default new Util();
