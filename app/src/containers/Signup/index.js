@@ -248,8 +248,10 @@ class Signup extends Component {
           user_type: "user"
         };
         this.props.request(payload);
-      }, 700);
-      Actions.detail();
+      }, 800);
+      setTimeout(() => {
+        Actions.detail();
+      }, 900);
     }
   };
 

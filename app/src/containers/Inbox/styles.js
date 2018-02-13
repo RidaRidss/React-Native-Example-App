@@ -4,8 +4,8 @@ import { Colors, Metrics } from "../../theme";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.primary,
-    paddingHorizontal: Metrics.baseMargin
+    backgroundColor: Colors.background.primary
+    // paddingHorizontal: Metrics.baseMargin
   },
   addChatButton: {
     flex: 1,

@@ -1,4 +1,8 @@
-import { CHAT_LIST } from "./ActionTypes";
+import {
+  CHAT_LIST,
+  UPDATE_CHAT_LOCALLY,
+  DELETE_CHAT_LOCALLY
+} from "./ActionTypes";
 
 export function request(url: string, payload: Object) {
   return {
@@ -19,5 +23,20 @@ export function failure(errorMessage: Object) {
   return {
     errorMessage,
     type: CHAT_LIST.FAILURE
+  };
+}
+
+export function deleteChatLocally(index: number) {
+  return {
+    index,
+    type: DELETE_CHAT_LOCALLY
+  };
+}
+
+export function updateChatLocally(data: Object, chatIndex: number) {
+  return {
+    data,
+    chatIndex,
+    type: UPDATE_CHAT_LOCALLY
   };
 }

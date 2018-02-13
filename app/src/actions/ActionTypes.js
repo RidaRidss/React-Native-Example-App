@@ -32,7 +32,15 @@ export const SIGN_UP = createRequestTypes("SIGN_UP");
 export const USER_EDIT = createRequestTypes("USER_EDIT");
 export const FORGOT_PASSWORD = createRequestTypes("FORGOT_PASSWORD");
 export const CHANGE_PASSWORD = createRequestTypes("CHANGE_PASSWORD");
-export const CHAT_LIST = createRequestTypes("CHAT_LIST");
+// export const CHAT_LIST = createRequestTypes("CHAT_LIST");
+// export const CHAT_HISTORY = createRequestTypes("CHAT_HISTORY");
+// export const CHAT_HISORY_CLEAR = "CHAT_HISORY_CLEAR";
 export const CHAT_HISTORY = createRequestTypes("CHAT_HISTORY");
 export const CHAT_HISORY_CLEAR = "CHAT_HISORY_CLEAR";
+export const ADD_CHAT = "ADD_CHAT";
+
+export const DELETE_CHATS = createRequestTypes("DELETE_CHATS");
+export const DELETE_CHAT_LOCALLY = "DELETE_CHAT_LOCALLY";
+export const DELETE_CHAT_LISTING_LOCALLY = "DELETE_CHAT_LISTING_LOCALLY";
+export const FRIENDS_LISTING = createRequestTypes("FRIENDS_LISTING");
 export const LOGOUT = "LOGOUT";

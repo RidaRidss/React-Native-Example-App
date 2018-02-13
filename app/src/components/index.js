@@ -10,6 +10,8 @@ import { Image } from "./Image";
 import FlatList from "./FlatList";
 import Separator from "./Separator";
 import ImageButton from "./ImageButton";
+import EmptyComponent from "./EmptyComponent";
+import GifAnimation from "./GifAnimation";
 
 // import LocationButton from "./LocationButton";
 // import Hoshi from "./Input/MyInput";
@@ -62,7 +64,9 @@ export {
   GiftedChat,
   Image,
   Separator,
-  ImageButton
+  ImageButton,
+  EmptyComponent,
+  GifAnimation
   // ButtonGradient,
   // CardView,
   // OR,

@@ -8,7 +8,6 @@ import {
   Actions,
   ActionConst
 } from "react-native-router-flux";
-import { Text } from "react-native";
 import { Signup, Login, Detail, Chat, Inbox } from "../containers";
 import styles from "./styles";
 

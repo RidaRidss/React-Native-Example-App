@@ -13,7 +13,7 @@ function* watchReduxLoadFromDisk() {
 
       const { data } = yield select(getUser);
       if (data.entity_auth_id) {
-        Actions.detail();
+        Actions.Chat();
       }
     } catch (err) {
       console.warn("saga watchReduxLoadFromDisk error: ", err);

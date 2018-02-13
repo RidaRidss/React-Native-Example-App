@@ -5,22 +5,29 @@ import { Colors, Metrics } from "../../../theme";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.primary,
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: Colors.background.primary
   },
   leftButtonView: {
     borderWidth: Metrics.horizontalLineHeight,
     borderColor: Colors.black,
     // padding: Metrics.baseMargin,
     borderRadius: Metrics.borderRadius,
-    marginTop: Metrics.doubleBaseMargin * 2,
+    // marginTop: Metrics.baseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin * 3,
     paddingVertical: Metrics.baseMargin
   },
   noInternetImage: {
-    // width: Metrics.images.logo,
-    // height: Metrics.images.logo,
-    marginTop: -Metrics.doubleBaseMargin * 2
-    // marginVertical: Metrics.doubleBaseMargin,
+    width: Metrics.image.xLarge,
+    height: Metrics.image.xLarge
+    // marginTop: -Metrics.doubleBaseMargin * 2
+  },
+  noConnection: {
+    margin: Metrics.baseMargin,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    textAlign: "center"
   }
 });

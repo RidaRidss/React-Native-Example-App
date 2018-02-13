@@ -1,7 +1,7 @@
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 
 import SocketIO from "../../services/SocketIO";
@@ -12,8 +12,14 @@ import {
 } from "../../services/SocketIO/constants";
 
 import { GiftedChat } from "../../components";
-// import { GiftedChat } from "react-native-gifted-chat";
-import { request, clearHistory } from "../../actions/ChatHistoryActions";
+import {
+  request,
+  clearHistory,
+  addChat
+} from "../../actions/ChatHistoryActions";
+import NoInternetConnection from "../../components/EmptyComponent/NoInternetView";
+import styles from "./styles";
+import Utils from "../../util";
 
 console.ignoredYellowBox = ["Setting a timer"];
 
@@ -22,10 +28,13 @@ class Chat extends Component {
     user: PropTypes.object.isRequired,
     chatHistory: PropTypes.object.isRequired,
     request: PropTypes.func.isRequired,
-    clearHistory: PropTypes.func.isRequired
+    addChat: PropTypes.func.isRequired,
+    clearHistory: PropTypes.func.isRequired,
+    roomId: PropTypes.string,
+    networkInfo: PropTypes.object.isRequired
   };
 
-  static defaultProps = {};
+  static defaultProps = { roomId: "room00117" };
 
   constructor(props) {
     super(props);
@@ -42,70 +51,56 @@ class Chat extends Component {
     isConnected: false,
     isWaiting: false,
     isFull: false,
-    isSomeoneWriting: undefined,
-    messages: []
+    isSomeoneWriting: undefined
   };
 
+  componentWillMount() {}
+
   componentDidMount() {
-    this._fetchMessages(true);
-    this._connectSocketAndJoinRoom();
+    this._checkInternetAndConnect();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.chatHistory, this.props.chatHistory)) {
-      //console.log("chat history 22", nextProps.chatHistory.data);
-      this._updateMessageList(nextProps.chatHistory.data);
+    if (
+      nextProps.networkInfo.isNetworkConnected &&
+      !this.props.networkInfo.isNetworkConnected &&
+      !nextProps.chatHistory.isFetching &&
+      !this.state.isConnecting
+    ) {
+      setTimeout(() => {
+        this._retry();
+      }, 500);
     }
   }
 
   componentWillUnmount() {
     this._leaveRoomAndLeaveSocket();
-    //this.props.clearHistory();
+    this.props.clearHistory();
   }
 
-  _updateMessageList = chatHistory => {
-    const stateMessages = _.cloneDeep(this.state.messages);
+  _checkInternetAndConnect() {
+    setTimeout(() => {
+      if (this.props.networkInfo.isNetworkConnected) {
+        this._connectAndGetMessages();
+      } else {
+        this.setState({
+          isConnecting: false
+        });
+      }
+    }, 200);
+  }
 
-    for (let i = 0; i < chatHistory.length; i++) {
-      const newMessage = {
-        _id: chatHistory[i]._id,
-        text: chatHistory[i].message,
-        createdAt: chatHistory[i].created_at,
-        user: {
-          _id: chatHistory[i].user.user_id,
-          name: chatHistory[i].user.username
-          // avatar: user.profile_image
-        }
-        // sent: true
-        // received: true
-      };
+  _connectAndGetMessages() {
+    this._connectSocketAndJoinRoom();
+    this._fetchMessages("");
+  }
 
-      stateMessages.push(newMessage);
-
-      // copyMessages = GiftedChat.append(copyMessages, newMessage);
-    }
-    this.setState({ messages: stateMessages });
-  };
-
-  _fetchMessages = reset => {
-    const { user, chatHistory } = this.props;
-
-    const payload = {
-      token: APP_TOKEN,
-      identifier: user.entity_auth_id,
-      room: "room005",
-      limit: 20,
-      currentPage: reset ? 1 : chatHistory.currentPage + 1
-    };
-
-    this.props.request(CHAT_API_GET_MESSAGES, payload);
-  };
+  // SOCKET FUNCTIONS  /////////////////////////////////////////////////////////////////////////////////////////////////
 
   chatObject = {};
 
   _configureChatRoom() {
-    const { user } = this.props;
-    console.log("hello user", user);
+    const { user, roomId } = this.props;
     const userName =
       user.attributes && user.attributes.name ? user.attributes.name : "";
     const userId = user.entity_auth_id;
@@ -113,13 +108,22 @@ class Chat extends Component {
     this.chatObject = {
       url: URL,
       appToken: APP_TOKEN,
-      roomId: "room005",
+      roomId,
       userId,
       userName,
-      userAvatar:
-        user.gallery && user.gallery.length ? user.gallery[0].file : ""
+      userAvatar: this._getGallery()
     };
   }
+
+  _getGallery = data => {
+    if (data && data.gallery && data.gallery.length) {
+      return data.gallery[0].file;
+    } else if (data && data.attributes.fb_image) {
+      return data.attributes.fb_image;
+    }
+
+    return "";
+  };
 
   _leaveRoomAndLeaveSocket() {
     const { appToken, roomId, userId } = this.chatObject;
@@ -132,14 +136,6 @@ class Chat extends Component {
       isWaiting: false,
       isFull: false
     });
-  }
-
-  _renderConnecting() {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
   }
 
   _startTyping(text) {
@@ -165,37 +161,6 @@ class Chat extends Component {
     }
   }
 
-  _renderConnected() {
-    const { userId } = this.chatObject;
-    return (
-      <View style={{ flex: 1 }}>
-        <GiftedChat
-          user={{
-            _id: userId
-          }}
-          renderAvatarOnTop
-          isLoadingEarlier
-          scrollEventThrottle={16}
-          messages={this.state.messages}
-          renderFooter={this._renderFooter}
-          onSend={messages => this._onSend(messages)}
-          listViewProps={{
-            ref: ref => {
-              this.list = ref;
-            },
-            onScroll: (event: Object) => {
-              this.scrollLastOffset = event.nativeEvent.contentOffset.y;
-            }
-          }}
-          onInputTextChanged={text => {
-            this._startTyping(text);
-            this._stoppedTyping(text);
-          }}
-        />
-      </View>
-    );
-  }
-
   _onSend = (messages = []) => {
     console.log(messages, typeof messages);
 
@@ -214,6 +179,8 @@ class Chat extends Component {
 
   _connectSocketAndJoinRoom() {
     const { url, roomId, userId, userName, userAvatar } = this.chatObject;
+    SocketIO.disconnect();
+
     SocketIO.connect(
       () => {
         SocketIO.joinRoom(roomId, [
@@ -235,17 +202,10 @@ class Chat extends Component {
             user: {
               _id: user.user_id,
               name: user.username,
-              avatar: user.profile_image
+              avatar: user.userAvatar
             }
-            // sent: true
-            // received: true
           };
-
-          console.log("append message");
-
-          this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, newMessage)
-          }));
+          this.props.addChat(newMessage);
         });
 
         SocketIO.onUserTyping(user => {
@@ -268,6 +228,11 @@ class Chat extends Component {
               isWaiting: false,
               isFull: false
             });
+
+            const { invalidUser } = this.props.chatHistory;
+            if (invalidUser) {
+              this._fetchMessages("");
+            }
           }
         });
 
@@ -293,14 +258,116 @@ class Chat extends Component {
         });
       },
       () => {
-        this.setState({
-          isConnecting: false,
-          isConnected: false,
-          isWaiting: false,
-          isFull: false
-        });
+        setTimeout(() => {
+          if (this.props.networkInfo.isNetworkConnected) {
+            this._retry();
+          } else {
+            this.setState({
+              isConnecting: false,
+              isConnected: false,
+              isWaiting: false,
+              isFull: false,
+              isSomeoneWriting: undefined
+            });
+          }
+        }, 500);
       },
-      url
+      url,
+      () => {
+        if (this.state.isConnected || this.state.isConnecting) {
+          this.setState({
+            isConnecting: false,
+            isConnected: false,
+            isWaiting: false,
+            isFull: false,
+            isSomeoneWriting: undefined
+          });
+        }
+      }
+    );
+  }
+
+  // REST API FUNCTIONS  /////////////////////////////////////////////////////////////////////////////////////////////////
+
+  _fetchMessages = lastId => {
+    const { user, roomId } = this.props;
+
+    const payload = {
+      token: APP_TOKEN,
+      identifier: user.entity_auth_id,
+      room: roomId,
+      limit: 20,
+      currentPage: 1
+    };
+
+    /*
+    const payload = {
+      token: APP_TOKEN,
+      identifier: "10000",
+      room: roomId,
+      limit: 20,
+      currentPage: 1
+    };
+    */
+
+    if (lastId !== "") {
+      payload.last_id = lastId;
+      payload.offset = 0;
+    }
+
+    this.props.request(CHAT_API_GET_MESSAGES, payload, lastId);
+  };
+
+  _onLoadEarlier = () => {
+    const { data } = this.props.chatHistory;
+    const length = data.length - 1;
+    const message = data[length];
+    const lastMessageId = message._id;
+    this._fetchMessages(lastMessageId);
+  };
+
+  // RENDER UI FUNCTIONS  /////////////////////////////////////////////////////////////////////////////////////////////////
+
+  _renderConnected() {
+    const { userId } = this.chatObject;
+
+    const {
+      isFinishLoading,
+      lastId,
+      isFetching,
+      data
+    } = this.props.chatHistory;
+    const isLoadingEarlier = isFetching && lastId !== ""; // loading eariler messages
+    const loadEarlier = !isFinishLoading;
+
+    return (
+      <View style={styles.container}>
+        <GiftedChat
+          user={{
+            _id: userId
+          }}
+          loadEarlier={loadEarlier}
+          onLoadEarlier={this._onLoadEarlier}
+          isLoadingEarlier={isLoadingEarlier}
+          renderAvatarOnTop
+          scrollEventThrottle={16}
+          messages={data}
+          renderFooter={this._renderFooter}
+          onSend={messages => this._onSend(messages)}
+          listViewProps={{
+            ref: ref => {
+              this.list = ref;
+            },
+            onScroll: (event: Object) => {
+              this.scrollLastOffset = event.nativeEvent.contentOffset.y;
+            }
+          }}
+          onInputTextChanged={text => {
+            this._startTyping(text);
+            this._stoppedTyping(text);
+          }}
+        />
+      </View>
     );
   }
 
@@ -316,48 +383,60 @@ class Chat extends Component {
     );
   };
 
-  _renderConnectButton() {
+  _renderConnecting() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text onPress={() => this._connectSocketAndJoinRoom()}>
-          Connect with chat Room
-        </Text>
+      <View style={styles.loader}>
+        <ActivityIndicator />
       </View>
     );
   }
 
+  _retry() {
+    if (this.props.networkInfo.isNetworkConnected === true) {
+      this.setState({
+        isConnecting: true,
+        isConnected: false,
+        isSomeoneWriting: undefined
+      });
+      this._connectAndGetMessages();
+    } else {
+      // check net
+      Utils.noInternetMessage();
+    }
+  }
+
+  _renderConnectButton() {
+    return (
+      <NoInternetConnection
+        message="Unable to connect to chat server.Please check your internet connection"
+        onRetryPress={() => this._retry()}
+      />
+    );
+  }
+
   render() {
+    const { isFetching, lastId } = this.props.chatHistory;
     const { isConnecting, isConnected } = this.state;
-    const { user, chatHistory } = this.props;
+    const isReadyToChat = (!isFetching || lastId !== "") && isConnected;
+    const isError = !isConnected && !isConnecting;
+    const isLoading = !isReadyToChat && !isError;
+
     return (
       <View style={styles.container}>
-        {isConnected && this._renderConnected()}
-        {isConnecting && this._renderConnecting()}
-        {!isConnected && !isConnecting && this._renderConnectButton()}
+        {isLoading && this._renderConnecting()}
+        {isReadyToChat && this._renderConnected()}
+        {isError && this._renderConnectButton()}
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F5FCFF"
-  },
-  footerContainer: {
-    margin: 8,
-    height: 10
-  },
-  footerText: {
-    fontStyle: "italic"
-  }
-});
-
 const mapStateToProps = store => ({
   user: store.user.data,
-  chatHistory: store.chatHistory
+  chatHistory: store.chatHistory,
+  networkInfo: store.networkInfo
 });
 
-const actions = { request, clearHistory };
+const actions = { request, clearHistory, addChat };
 
 export default connect(mapStateToProps, actions)(Chat);

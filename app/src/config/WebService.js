@@ -17,6 +17,14 @@ export const API_USER_SOCIAL_LOGIN = `${API}entity_auth/social_login`;
 export const API_FORGOT_PASSWORD = `${API}entity_auth/forgot_request`;
 export const API_CHANGE_PASSWORD = `${API}entity_auth/change_password`;
 
+// GETTING LISTING API FOR FRIENDS
+
+export const API_ENTITY_LISTING_SEARCH = `${API}system/entities/listing`;
+
+// DELETE ROUTE
+
+export const API_ENTITY_DELETE = `${API}system/entities/delete`;
+
 // UPLOAD FILE ROUTE
 export const API_ENTITY_ATTACHMENT_FILE = `${API}system/attachment/save`;
 

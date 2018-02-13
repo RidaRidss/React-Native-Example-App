@@ -33,7 +33,8 @@ import {
   Platform,
   ActivityIndicator,
   Alert,
-  Image
+  Image,
+  MaskedViewIOS
 } from "react-native";
 import MapView from "react-native-maps";
 import { LoginManager, FBLoginManager } from "react-native-fbsdk";
@@ -200,6 +201,7 @@ class Detail extends Component {
     // ===================== user data params =========================== //
 
     const { auth, attributes, gallery } = this._user();
+    console.log(this._user(), "user expected");
     const { name, entity_auth_id } = auth;
     const profileImage =
       this._user().gallery && this._user().gallery.length
@@ -250,12 +252,19 @@ class Detail extends Component {
         <View style={styles.buttonView}>
           <ButtonView
             style={styles.button}
-            onPress={() => Actions.Chat()
+            onPress={() => Actions.Chat()}
+            // null
+            // Actions.Chat({
+            //   title: users[0].username ,
+            //   id: entity_auth_id ,
+            //   user: users[0] ,
+            //   roomId: chatList.data[index].room
+            // });
 
             // ================== xmpp code here =========================
             // XmppService.connect();
             // ===========================================================
-            }
+            // }
           >
             <Text color="secondary" type="book" size="large">
               Join Our Chat Room
